@@ -1461,4 +1461,8 @@
          it is disabled by default so devices need to add an overlay to enable -->
     <string name="config_fastChargePath" translatable="false"></string>
 
+   <!-- set to false if we dont need to consider data
+         service state to display signal strength bars -->
+    <bool name="config_combined_signal">true</bool>
+
 </resources>
