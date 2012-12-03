@@ -70,7 +70,7 @@
     <!-- Power widget -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
-    <!-- Carbon extra permissions -->
+    <!-- C-RoM extra permissions -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -215,7 +215,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.systemui.carbon.RingVibToggle"
+            android:name="com.android.systemui.crom.NavbarToggle"
+            android:label="@string/toggle_navbar"
+            android:icon="@drawable/toggle_navbar"
+            android:theme="@android:style/Theme.Holo.Panel"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="com.android.systemui.INTENT_NAVBAR_TOGGLE" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.systemui.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.systemui.crom.WidgetToggle"
+            android:label="@string/toggle_widgets"
+            android:icon="@drawable/ic_sysbar_widget"
+            android:theme="@android:style/Theme.Holo.Panel"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="com.android.systemui.INTENT_WIDGET_TOGGLE" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.systemui.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.systemui.crom.RingVibToggle"
             android:label="@string/toggle_ring_vib"
             android:icon="@drawable/ic_lockscreen_vib"
             android:theme="@android:style/Theme.Holo.Panel"
@@ -228,7 +254,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.systemui.carbon.RingSilentToggle"
+            android:name="com.android.systemui.crom.RingSilentToggle"
             android:label="@string/toggle_ring_silent"
             android:icon="@drawable/ic_lockscreen_silent"
             android:theme="@android:style/Theme.Holo.Panel"
@@ -241,7 +267,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.android.systemui.carbon.RingVibSilentToggle"
+            android:name="com.android.systemui.crom.RingVibSilentToggle"
             android:label="@string/toggle_ring_vib_silent"
             android:icon="@drawable/ic_lockscreen_soundon"
             android:theme="@android:style/Theme.Holo.Panel"
@@ -251,6 +277,21 @@
                 <action android:name="com.android.systemui.INTENT_RING_VIB_SILENT_TOGGLE" />
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.android.systemui.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.systemui.CreateShortcut"
+            android:label="@string/shortcut_label"
+            android:icon="@drawable/ic_sysbar_null">
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.android.systemui.WidgetSelectActivity"
+            android:excludeFromRecents="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <!-- Beans in space -->
@@ -273,12 +314,6 @@
             android:exported="true"
             android:excludeFromRecents="true"
             >
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
