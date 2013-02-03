@@ -71,7 +71,7 @@
     <!-- Power widget -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
-    <!-- C-RoM extra permissions -->
+    <!-- crom extra permissions -->
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -143,9 +143,9 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".crom.AwesomeReceiver">
+            android:name=".aokp.AwesomeReceiver">
             <intent-filter>
-                <action android:name="com.android.systemui.crom.LAUNCH_ACTION" />
+                <action android:name="com.android.systemui.aokp.LAUNCH_ACTION" />
             </intent-filter>
         </receiver>
 
@@ -230,6 +230,19 @@
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="com.android.systemui.INTENT_NAVBAR_TOGGLE" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.android.systemui.SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.android.systemui.crom.StatusbarToggle"
+            android:label="@string/toggle_statusbar"
+            android:icon="@drawable/toggle_statusbar"
+            android:theme="@android:style/Theme.Holo.Panel"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="com.android.systemui.INTENT_STATUSBAR_TOGGLE" />
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.android.systemui.SHORTCUT" />
             </intent-filter>
