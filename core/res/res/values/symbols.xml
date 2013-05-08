@@ -1882,4 +1882,6 @@
   <java-symbol type="color" name="holo_purple_dark" />
   <java-symbol type="color" name="holo_red_dark" />
 
+  <java-symbol type="string" name="config_fastChargePath" />
+
 </resources>
