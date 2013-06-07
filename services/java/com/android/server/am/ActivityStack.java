@@ -1460,7 +1460,7 @@ final class ActivityStack {
 
     final boolean resumeTopActivityLocked(ActivityRecord prev, Bundle options) {
 
-        mPm.cpuBoost(1500000);
+        mPm.cpuBoost(1550000);
 
         // Find the first activity that is not finishing.
         ActivityRecord next = topRunningActivityLocked(null);
@@ -2550,7 +2550,7 @@ final class ActivityStack {
 
         int err = ActivityManager.START_SUCCESS;
 
-        mPm.cpuBoost(1500000);
+        mPm.cpuBoost(1550000);
 
         ProcessRecord callerApp = null;
 
