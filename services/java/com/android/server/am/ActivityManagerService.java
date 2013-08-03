@@ -6656,7 +6656,7 @@ public final class ActivityManagerService  extends ActivityManagerNative
                     // pending on the process even though we managed to update its
                     // adj level.  Not sure what to do about this, but at least
                     // the race is now smaller.
-                    if (!success || !Process.isAlive(cpr.proc.pid)) {
+                    if (!success) {
                         // Uh oh...  it looks like the provider's process
                         // has been killed on us.  We need to wait for a new
                         // process to be started, and make sure its death
@@ -6665,9 +6665,7 @@ public final class ActivityManagerService  extends ActivityManagerNative
                                 "Existing provider " + cpr.name.flattenToShortString()
                                 + " is crashing; detaching " + r);
                         boolean lastRef = decProviderCountLocked(conn, cpr, token, stable);
-                        if (!success) {
-                            appDiedLocked(cpr.proc, cpr.proc.pid, cpr.proc.thread);
-                        }
+                        appDiedLocked(cpr.proc, cpr.proc.pid, cpr.proc.thread);
                         if (!lastRef) {
                             // This wasn't the last ref our process had on
                             // the provider...  we have now been killed, bail.
