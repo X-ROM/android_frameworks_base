@@ -96,7 +96,6 @@ public class Watchdog extends Thread {
     int mPhonePid;
     IActivityController mController;
     boolean mAllowRestart = true;
-    int mActivityControllerPid;
 
     final Calendar mCalendar = Calendar.getInstance();
     int mMinScreenOff = MEMCHECK_DEFAULT_MIN_SCREEN_OFF;
@@ -225,9 +224,6 @@ public class Watchdog extends Thread {
         synchronized (this) {
             if ("com.android.phone".equals(name)) {
                 mPhonePid = pid;
-            }
-            else if ("ActivityController".equals(name)) {
-                     mActivityControllerPid = pid;
             }
         }
     }
@@ -460,7 +456,6 @@ public class Watchdog extends Thread {
             ArrayList<Integer> pids = new ArrayList<Integer>();
             pids.add(Process.myPid());
             if (mPhonePid > 0) pids.add(mPhonePid);
-            if (mActivityControllerPid > 0) pids.add(mActivityControllerPid);
             // Pass !waitedHalf so that just in case we somehow wind up here without having
             // dumped the halfway stacks, we properly re-initialize the trace file.
             final File stack = ActivityManagerService.dumpStackTraces(
