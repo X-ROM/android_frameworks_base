@@ -52,12 +52,7 @@ import android.widget.LinearLayout;
 
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.systemui.R;
-<<<<<<< HEAD
-import com.android.systemui.crom.AokpTarget;
-import com.android.systemui.statusbar.policy.ExtensibleKeyButtonView;
-=======
-import com.android.systemui.carbon.AwesomeAction;
->>>>>>> 6db7dee... SystemUI: cleaner recents key implementation
+import com.android.systemui.crom.AwesomeAction;
 import com.android.systemui.statusbar.policy.KeyButtonView;
 import com.android.systemui.statusbar.policy.key.ExtensibleKeyButtonView;
 import com.android.systemui.statusbar.policy.key.RecentsKeyButtonView;
