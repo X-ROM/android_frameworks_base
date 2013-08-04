@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.systemui.aokp;
+package com.android.systemui.crom;
 
 import android.app.Activity;
 import android.os.Bundle;

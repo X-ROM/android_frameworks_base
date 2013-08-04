@@ -5,9 +5,9 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.view.View;
 
-import static com.android.internal.util.carbon.AwesomeConstants.*;
+import static com.android.internal.util.crom.AwesomeConstants.*;
 import com.android.systemui.R;
-import com.android.systemui.carbon.AwesomeAction;
+import com.android.systemui.crom.AwesomeAction;
 
 public class SoundStateToggle extends StatefulToggle {
     private AudioManager mAudioManager;
