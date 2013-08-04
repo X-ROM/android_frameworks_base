@@ -50,7 +50,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import static com.android.internal.util.crom.AwesomeConstants.*;
-import com.android.internal.util.crom.BackgroundAlphaColorDrawable;.
+import com.android.internal.util.crom.BackgroundAlphaColorDrawable;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.util.crom.NavBarHelpers;
 import com.android.systemui.R;
