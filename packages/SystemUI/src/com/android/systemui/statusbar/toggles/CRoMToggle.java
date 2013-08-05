@@ -19,7 +19,7 @@ public class CRoMToggle extends BaseToggle {
     @Override
     public void onClick(View v) {
         Intent intent = new Intent("android.intent.action.MAIN");
-        intent.setClassName("com.crom.settings", "com.crom.settings.Settings$CrSettingsActivity");
+        intent.setClassName("com.crom.settings", "com.crom.settings$CrSettingsActivity");
         intent.addCategory("android.intent.category.LAUNCHER");
         collapseStatusBar();
         dismissKeyguard();
