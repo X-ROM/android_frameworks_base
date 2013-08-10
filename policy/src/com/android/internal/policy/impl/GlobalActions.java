@@ -23,22 +23,17 @@ import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.TelephonyProperties;
 import com.android.internal.R;
 
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.ActivityManagerNative;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Profile;
 import android.app.ProfileManager;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.UserInfo;
-import android.content.ServiceConnection;
 import android.database.ContentObserver;
 import android.hardware.input.InputManager;
 import android.graphics.drawable.Drawable;
@@ -47,7 +42,6 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Messenger;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
@@ -56,19 +50,14 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.provider.Settings.SettingNotFoundException;
 import android.service.dreams.DreamService;
 import android.service.dreams.IDreamManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.util.Log;
-import android.util.Slog;
 import android.util.TypedValue;
 import android.view.InputDevice;
-import android.view.IWindowManager;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -85,7 +74,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.collect.Lists;
 import com.android.internal.app.ThemeUtils;
 
 import java.util.ArrayList;
@@ -137,7 +125,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mIsWaitingForEcmExit = false;
     private boolean mHasTelephony;
     private boolean mHasVibrator;
-    private boolean mEnableTorchToggle = false;
     private final boolean mShowSilentToggle;
 
     private Profile mChosenProfile;
@@ -263,9 +250,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             }
         };
         onExpandDesktopModeChanged();
-
-        mEnableTorchToggle = Settings.System.getBoolean(mContext.getContentResolver(),
-                Settings.System.POWER_MENU_TORCH_ENABLED, false);
 
         mEnableNavBarHideToggle= Settings.System.getBoolean(mContext.getContentResolver(),
                 Settings.System.POWER_DIALOG_SHOW_NAVBAR_HIDE, false);
@@ -478,29 +462,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         // Next NavBar Hide
         if (mEnableNavBarHideToggle) {
             mItems.add(mNavBarHideToggle);
-        }
-
-        // last: Torch
-        if (mEnableTorchToggle) {
-            Slog.e(TAG, "Adding torch");
-            mItems.add(new SinglePressAction(com.android.internal.R.drawable.ic_lock_torch,
-                    R.string.global_action_torch) {
-                public void onPress() {
-                    Intent i = new Intent("net.cactii.flash2.TOGGLE_FLASHLIGHT");
-                    i.putExtra("bright", false);
-                   mContext.sendBroadcast(i);
-                }
-
-                public boolean showDuringKeyguard() {
-                    return true;
-                }
-
-                public boolean showBeforeProvisioning() {
-                    return true;
-                }
-            });
-        } else {
-            Slog.e(TAG, "Not adding torch");
         }
 
         // last: silent mode
