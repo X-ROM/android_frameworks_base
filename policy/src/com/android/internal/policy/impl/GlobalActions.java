@@ -466,40 +466,16 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             mItems.add(mSilentModeAction);
         }
 
-<<<<<<< HEAD
         // last: silent mode
         if ((Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.POWER_MENU_SOUND_ENABLED, 1) == 1) &&
                 (mShowSilentToggle)) {
             mItems.add(mSilentModeAction);
-=======
-        // next: Torch
-        if (mEnableTorchToggle) {
-            Slog.e(TAG, "Adding torch");
-            mItems.add(new SinglePressAction(com.android.internal.R.drawable.ic_lock_torch,
-                    R.string.global_action_torch) {
-                public void onPress() {
-                    Intent i = new Intent("net.cactii.flash2.TOGGLE_FLASHLIGHT");
-                    i.putExtra("bright", false);
-                   mContext.sendBroadcast(i);
-                }
-
-                public boolean showDuringKeyguard() {
-                    return true;
-                }
-
-                public boolean showBeforeProvisioning() {
-                    return true;
-                }
-            });
-        } else {
-            Slog.e(TAG, "Not adding torch");
         }
 
         // last NavBar Hide
         if (mEnableNavBarHideToggle) {
             mItems.add(mNavBarHideToggle);
->>>>>>> 2ff4476... Re-order Power menu a bit more
         }
 
         mAdapter = new MyAdapter();
