@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2013 ParanoidAndroid Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +40,6 @@
             android:textColor="#ffffff"
             android:fontFamily="sans-serif-light"
             android:textSize="@dimen/halo_speech_text_size"
-            android:textStyle="bold"
             android:singleLine="true"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"

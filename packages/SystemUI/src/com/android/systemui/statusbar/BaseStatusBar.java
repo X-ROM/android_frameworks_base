@@ -1210,9 +1210,9 @@ public abstract class BaseStatusBar extends SystemUI implements
             } catch (Exception e) {
                 // NameNotFoundException
             }
-        }
+        }        
         entry.roundIcon = roundIcon;
-    } 
+    }
 
     protected StatusBarIconView addNotificationViews(IBinder key,
             StatusBarNotification notification) {
@@ -1403,8 +1403,9 @@ public abstract class BaseStatusBar extends SystemUI implements
                     oldEntry.content.setOnClickListener(null);
                     oldEntry.floatingIntent = null;
                 }
-		// Update the roundIcon
+                // Update the roundIcon
                 prepareHaloNotification(oldEntry, notification, true);
+
                 // Update the icon.
                 final StatusBarIcon ic = new StatusBarIcon(notification.getPackageName(),
                         notification.getUser(),

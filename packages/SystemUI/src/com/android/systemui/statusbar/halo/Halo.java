@@ -328,7 +328,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                       WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                       | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                      | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                      | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE                      
                       | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
                       | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
               PixelFormat.TRANSLUCENT);
@@ -460,7 +460,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                     && mLastNotificationEntry.notification.getNotification().tickerText != null) {
                 mNotificationText = mLastNotificationEntry.notification.getNotification().tickerText.toString();
             }
-
+            
             tick(mLastNotificationEntry, 0, 0, false, false);
         } else {
             clearTicker();
@@ -568,7 +568,6 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
     public boolean onTouchEvent(MotionEvent event) {
 
         mEffect.onTouchEvent(event);
-
 
         // Prevent any kind of interaction while HALO explains itself
         if (mState == State.FIRST_RUN) return true;
@@ -874,7 +873,6 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                                 } else {
                                     mEffect.ping(mPaintHolo, 0);
                                 }
-
                             } else {
                                 setIcon(iconIndex);
                                 NotificationData.Entry entry = mNotificationData.get(iconIndex);
@@ -1047,7 +1045,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             // This will reset the initialization flag
             mInitialized = false;
             // Generate a new content bubble
-           updateResources(mTickerLeft);
+            updateResources(mTickerLeft);
         }
 
         @Override
@@ -1083,6 +1081,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             tickerAnimator.animate(ObjectAnimator.ofPropertyValuesHolder(this, tickerUpFrames).setDuration((int)total),
                     new DecelerateInterpolator(), null, delay, null);
         }
+
         public void ticker(int delay, int startDuration) {
 
             setHaloContentHeight(mContext.getResources().getDimensionPixelSize(R.dimen.notification_min_height));
@@ -1574,7 +1573,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                         public void run() {
                             int lastMsg = getHaloMsgCount() - getHidden();
                             if (lastMsg > 0) {
-                                NotificationData.Entry entry = mNotificationData.get(getHaloMsgIndex(lastMsg - 1, true));
+                                NotificationData.Entry entry = mNotificationData.get(getHaloMsgIndex(lastMsg - 1, true));                                
                                 mEffect.wake();
                                 mEffect.nap(HaloEffect.NAP_DELAY + HaloEffect.WAKE_TIME * 2);
                                 if (mHideTicker) mEffect.sleep(HaloEffect.SLEEP_DELAY + HaloEffect.WAKE_TIME * 2, HaloEffect.SLEEP_TIME, false);
