@@ -328,7 +328,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                 WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                       WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                       | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                      | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE                      
+                      | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                       | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
                       | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
               PixelFormat.TRANSLUCENT);
@@ -381,7 +381,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             // Halo dock position
             mTickerLeft = msavePositionX == 0 ? true : false;
             updateTriggerPosition(msavePositionX, msavePositionY);
-            mEffect.updateResources(mTickerLeft); View.VISIBLE);            
+            mEffect.updateResources(mTickerLeft);
             mEffect.setHaloY(msavePositionY);         
 
             if (mState == State.FIRST_RUN) {
@@ -436,20 +436,18 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
 
     private void loadLastNotification(boolean includeCurrentDismissable) {
         if (getHaloMsgCount() > 0) {
-            mLastNotificationEntry = mNotificationData.get(getHaloMsgIndex(getHaloMsgCount()-1,"task"));
+            mLastNotificationEntry = mNotificationData.get(getHaloMsgIndex(getHaloMsgCount() - 1, false));
 
             // If the current notification is dismissable we might want to skip it if so desired
             if (!includeCurrentDismissable) {
                 if (getHaloMsgCount() > 1 && mLastNotificationEntry != null &&
                         mCurrentNotficationEntry != null &&
                         mLastNotificationEntry.notification == mCurrentNotficationEntry.notification) {
-                    boolean cancel = (mLastNotificationEntry.notification.getNotification().flags &
-                            Notification.FLAG_AUTO_CANCEL) == Notification.FLAG_AUTO_CANCEL;
-                    if (cancel) mLastNotificationEntry = mNotificationData.get(getHaloMsgIndex(getHaloMsgCount()-2,"task"));
+                    if (mLastNotificationEntry.notification.isClearable()) {
+                        mLastNotificationEntry = mNotificationData.get(getHaloMsgIndex(getHaloMsgCount() - 2, false));
+                    }
                 } else if (getHaloMsgCount() == 1) {
-                    boolean cancel = (mLastNotificationEntry.notification.getNotification().flags &
-                            Notification.FLAG_AUTO_CANCEL) == Notification.FLAG_AUTO_CANCEL;
-                    if (cancel) {
+                    if (mLastNotificationEntry.notification.isClearable()) {
                         // We have one notification left and it is dismissable, clear it...
                         clearTicker();
                         return;
@@ -550,8 +548,12 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
     void setIcon(int index) {
         float originalAlpha = mContext.getResources().getFraction(R.dimen.status_bar_icon_drawing_alpha, 1, 1);
         for (int i = 0; i < mNotificationData.size(); i++) {
-            NotificationData.Entry entry = mNotificationData.get(i);            
-            entry.icon.setAlpha(index == i ? 1f : originalAlpha);
+            NotificationData.Entry entry = mNotificationData.get(i);
+            float alpha = index == i ? 1f : originalAlpha;
+
+            // Persistent notification appear muted
+            if (!entry.notification.isClearable() && index != i) alpha /= 2;
+            entry.icon.setAlpha(alpha);
         }
     }
 
@@ -566,6 +568,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
     public boolean onTouchEvent(MotionEvent event) {
 
         mEffect.onTouchEvent(event);
+
 
         // Prevent any kind of interaction while HALO explains itself
         if (mState == State.FIRST_RUN) return true;
@@ -652,7 +655,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                 } else if (mGesture == Gesture.UP2) {
                     // Clear all notifications
                     playSoundEffect(SoundEffectConstants.CLICK);
-                    if (getHaloMsgCount()-getHidden() <1){
+                    if (getHaloMsgCount()-getHidden() < 1) {
                         mEffect.nap(1500);
                         if (mHideTicker) mEffect.sleep(HaloEffect.NAP_TIME + 3000, HaloEffect.SLEEP_TIME, false);
                     }
@@ -666,7 +669,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                 } else if (mGesture == Gesture.UP1) {
                     // Dismiss notification
                     playSoundEffect(SoundEffectConstants.CLICK);
-                    if (getHaloMsgCount()-getHidden() <1){
+                    if (getHaloMsgCount()-getHidden() < 1) {
                         mEffect.nap(1500);
                         if (mHideTicker) mEffect.sleep(HaloEffect.NAP_TIME + 3000, HaloEffect.SLEEP_TIME, false);
                     }
@@ -787,7 +790,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                         }
 
                     // Up & down gestures
-                     } else if (Math.abs(deltaY) > verticalThreshold * 2) {
+                    } else if (Math.abs(deltaY) > verticalThreshold * 2) {
                         mMarkerIndex = -1;
 
                         boolean gestureChanged = false;
@@ -834,8 +837,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
 
                         if (gestureChanged) {
                             mMarkerIndex = -1;
-
-                             mEffect.ticker(gestureText, 0, 250);
+                            mEffect.ticker(gestureText, 0, 250);
                             if (mHapticFeedback) mVibrator.vibrate(10);
                             gestureChanged = false;
                         }
@@ -858,7 +860,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                         // Make a tiny pop if not so many icons are present
                         if (mHapticFeedback && getHaloMsgCount() < 10) mVibrator.vibrate(10);
 
-                        int iconIndex = getHaloMsgIndex(mMarkerIndex, "task");
+                        int iconIndex = getHaloMsgIndex(mMarkerIndex, false);
                         try {
                             // Tick the first item only if we were tasking before
                             if (iconIndex == -1 && !verticalGesture() && oldGesture == Gesture.TASK) {
@@ -1045,7 +1047,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             // This will reset the initialization flag
             mInitialized = false;
             // Generate a new content bubble
-            updateResources(mTickerLeft);
+           updateResources(mTickerLeft);
         }
 
         @Override
@@ -1081,7 +1083,6 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             tickerAnimator.animate(ObjectAnimator.ofPropertyValuesHolder(this, tickerUpFrames).setDuration((int)total),
                     new DecelerateInterpolator(), null, delay, null);
         }
-
         public void ticker(int delay, int startDuration) {
 
             setHaloContentHeight(mContext.getResources().getDimensionPixelSize(R.dimen.notification_min_height));
@@ -1367,8 +1368,8 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                     ((ViewGroup)mEffect.mHaloTickerContent).addView(entry.haloContent);
                     mEffect.ticker(delay, duration);
                 } catch(Exception e) {
-                    // haloContent had a view already? Let's give it one last chance ...   
-                    try {
+                    // haloContent had a view already? Let's give it one last chance ...       
+                    try {             
                         mBar.prepareHaloNotification(entry, notification, false);
                         if (entry.haloContent != null) ((ViewGroup)mEffect.mHaloTickerContent).addView(entry.haloContent);
                         mEffect.ticker(delay, duration);
@@ -1463,7 +1464,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
         return msgs;
     }
 
-    public int getHaloMsgIndex(int index, String option) {
+    public int getHaloMsgIndex(int index, boolean notifyOnUnlock) {
         int msgIndex = 0;
         StatusBarNotification notification;
 
@@ -1475,9 +1476,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                 // System is dead
             }
             //if notifying the user on unlock, ignore persistent notifications
-            if (option.equals("notify")) {
-                if (!notification.isClearable()) continue;
-            }
+            if (notifyOnUnlock && !notification.isClearable()) continue;
 
             if (msgIndex == index) return i;
 
@@ -1529,14 +1528,12 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
                     NotificationData.Entry entry = null;
                     if (getHaloMsgCount() > 0) {
                         for (int i = getHaloMsgCount()-1; i >= 0; i--) {
-                            NotificationData.Entry item = mNotificationData.get(getHaloMsgIndex(i,"task"));
+                            NotificationData.Entry item = mNotificationData.get(getHaloMsgIndex(i, false));
                             if (mCurrentNotficationEntry != null
                                     && mCurrentNotficationEntry.notification == item.notification) {
                                 continue;
                             }
-                            boolean cancel = (item.notification.getNotification().flags &
-                                    Notification.FLAG_AUTO_CANCEL) == Notification.FLAG_AUTO_CANCEL;
-                            if (cancel) {
+                            if (item.notification.isClearable()) {
                                 entry = item;
                                 break;
                             }
@@ -1568,7 +1565,7 @@ public class Halo extends FrameLayout implements Ticker.TickerCallback {
             // When screen unlocked, HALO active & Expanded desktop mode, ping HALO and load last notification.
             // Because notifications are not readily visible and HALO does not "tick" on protected lock screens
             if(intent.getAction().equals(Intent.ACTION_USER_PRESENT) &&
-                    Settings.System.getInt(mContext.getContentResolver(), Settings.System.HALO_ACTIVE, 0) == 1){
+                    Settings.System.getInt(mContext.getContentResolver(), Settings.System.HALO_ACTIVE, 0) == 1) {
                 if (mKeyguardManager.isKeyguardSecure() ||
                         (Settings.System.getInt(mContext.getContentResolver(), Settings.System.EXPANDED_DESKTOP_STATE, 0) == 1 &&
                                 mState == State.HIDDEN)) {
