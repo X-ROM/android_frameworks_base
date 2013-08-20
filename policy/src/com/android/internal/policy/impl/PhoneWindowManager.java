@@ -1646,50 +1646,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHasSoftInput = hasSoftInput;
                 updateRotation = true;
             }
-<<<<<<< HEAD
-
-            // Update navigation bar dimensions
-            boolean desktopExpanded = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.EXPANDED_DESKTOP_STATE, 0) == 1;
-            if (desktopExpanded) {
-                // Set the navigation bar's dimensions to 0 in expanded desktop mode
-                mNavigationBarWidthForRotation[mPortraitRotation]
-                        = mNavigationBarWidthForRotation[mUpsideDownRotation]
-                        = mNavigationBarWidthForRotation[mLandscapeRotation]
-                        = mNavigationBarWidthForRotation[mSeascapeRotation]
-                        = mNavigationBarHeightForRotation[mPortraitRotation]
-                        = mNavigationBarHeightForRotation[mUpsideDownRotation]
-                        = mNavigationBarHeightForRotation[mLandscapeRotation]
-                        = mNavigationBarHeightForRotation[mSeascapeRotation] = 0;
-            } else {
-                // Height of the navigation bar when presented horizontally at bottom
-                mNavigationBarHeightForRotation[mPortraitRotation] =
-                mNavigationBarHeightForRotation[mUpsideDownRotation] =
-                    Settings.System.getInt(
-                            mContext.getContentResolver(),
-                            Settings.System.NAVIGATION_BAR_HEIGHT,
-                            mContext.getResources()
-                                    .getDimensionPixelSize(
-                                            com.android.internal.R.dimen.navigation_bar_height));
-                mNavigationBarHeightForRotation[mLandscapeRotation] =
-                mNavigationBarHeightForRotation[mSeascapeRotation] =
-                    Settings.System.getInt(
-                            mContext.getContentResolver(),
-                            Settings.System.NAVIGATION_BAR_HEIGHT_LANDSCAPE,
-                            mContext.getResources()
-                                    .getDimensionPixelSize(
-                                            com.android.internal.R.dimen.navigation_bar_height_landscape));
-
-                // Width of the navigation bar when presented vertically along one side
-                mNavigationBarWidthForRotation[mPortraitRotation] =
-                mNavigationBarWidthForRotation[mUpsideDownRotation] =
-                mNavigationBarWidthForRotation[mLandscapeRotation] =
-                mNavigationBarWidthForRotation[mSeascapeRotation] =
-                        mContext.getResources().getDimensionPixelSize(
-                                com.android.internal.R.dimen.navigation_bar_width);
-            }
-=======
->>>>>>> 5c4e9a9... Fix and cleanup Expanded Desktop Mode
         }
 
         if (updateRotation) {
