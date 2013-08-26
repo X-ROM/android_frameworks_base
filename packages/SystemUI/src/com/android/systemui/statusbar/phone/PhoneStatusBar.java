@@ -256,7 +256,7 @@ public class PhoneStatusBar extends BaseStatusBar {
     int mSettingsPanelGravity;
     private NotifChangedObserver mNotifChangedObserver;
 
-    // Dark crom
+    // Dark C-RoM
     boolean mUiModeIsToggled;
 
     // top bar
