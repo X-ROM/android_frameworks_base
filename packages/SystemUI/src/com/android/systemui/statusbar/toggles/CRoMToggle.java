@@ -21,7 +21,7 @@ public class CRoMToggle extends BaseToggle {
     public void onClick(View v) {
         try {
             Intent intent = new Intent("android.intent.action.MAIN");
-           intent.setClassName("com.android.settings", "com.crom.settings/.CrSettingsActivity");
+            intent.setClassName("com.crom.settings/.CrSettingsActivity");
             intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
             startActivity(intent);
         } catch(NullPointerException e) {
