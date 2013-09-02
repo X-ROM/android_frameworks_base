@@ -106,6 +106,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.ParcelFileDescriptor;
+import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
 import android.os.SELinux;
@@ -213,6 +214,8 @@ public class PackageManagerService extends IPackageManager.Stub {
     private static final String INSTALL_PACKAGE_SUFFIX = "-";
 
     private static final int THEME_MAMANER_GUID = 1300;
+
+    private final PowerManager mPm;
 
     static final int SCAN_MONITOR = 1<<0;
     static final int SCAN_NO_DEX = 1<<1;
@@ -1083,6 +1086,8 @@ public class PackageManagerService extends IPackageManager.Stub {
         mSettings.addSharedUserLPw("android.uid.nfc", NFC_UID, ApplicationInfo.FLAG_SYSTEM);
         mSettings.addSharedUserLPw("android.uid.bluetooth", BLUETOOTH_UID, ApplicationInfo.FLAG_SYSTEM);
         mSettings.addSharedUserLPw("android.uid.shell", SHELL_UID, ApplicationInfo.FLAG_SYSTEM);
+
+        mPm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 
         String separateProcesses = SystemProperties.get("debug.separate_processes");
         if (separateProcesses != null && separateProcesses.length() > 0) {
@@ -3757,6 +3762,7 @@ public class PackageManagerService extends IPackageManager.Stub {
     private int performDexOptLI(PackageParser.Package pkg, boolean forceDex, boolean defer,
             HashSet<String> done) {
         boolean performed = false;
+        mPm.cpuBoost(1500000);
         if (done != null) {
             done.add(pkg.packageName);
             if (pkg.usesLibraries != null) {
