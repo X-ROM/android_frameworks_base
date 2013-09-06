@@ -29,6 +29,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
 import android.app.AppGlobals;
+import android.app.AppOpsManager;
 import android.app.IActivityManager;
 import android.app.IThumbnailRetriever;
 import android.app.IApplicationThread;
@@ -68,6 +69,7 @@ import android.util.EventLog;
 import android.util.Log;
 import android.util.Slog;
 import android.view.Display;
+
 import com.android.internal.app.ActivityTrigger;
 
 import java.io.IOException;
@@ -295,11 +297,6 @@ final class ActivityStack {
      */
     private ActivityRecord mLastScreenshotActivity = null;
     private Bitmap mLastScreenshotBitmap = null;
-
-    /**
-     * Is the privacy guard currently enabled?
-     */
-    String mPrivacyGuardPackageName = null;
 
     int mThumbnailWidth = -1;
     int mThumbnailHeight = -1;
@@ -1773,7 +1770,7 @@ final class ActivityStack {
                 EventLog.writeEvent(EventLogTags.AM_RESUME_ACTIVITY,
                         next.userId, System.identityHashCode(next),
                         next.task.taskId, next.shortComponentName);
-                
+  
                 next.sleeping = false;
                 showAskCompatModeDialogLocked(next);
                 next.app.pendingUiClean = true;
