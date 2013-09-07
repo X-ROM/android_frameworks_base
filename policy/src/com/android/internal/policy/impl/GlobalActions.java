@@ -466,6 +466,13 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
             mItems.add(mSilentModeAction);
         }
 
+        // last: silent mode
+        if ((Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_MENU_SOUND_ENABLED, 1) == 1) &&
+                (mShowSilentToggle)) {
+            mItems.add(mSilentModeAction);
+        }
+
         // last NavBar Hide
         if (mEnableNavBarHideToggle) {
             mItems.add(mNavBarHideToggle);
