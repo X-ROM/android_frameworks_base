@@ -287,7 +287,7 @@ public final class Settings {
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_NOTIFICATION_SHORTCUTS_SETTINGS =
-            "com.crom.settings.fragments.notificationshortcuts.NotificationShortcuts";
+            "com.crom.settings.fragments.notificationshortcuts.NOTIFICATION_SHORTCUTS";
 
     /**
      * Activity Action: Show settings to allow configuration of locale.
