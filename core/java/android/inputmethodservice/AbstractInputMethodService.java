@@ -69,7 +69,9 @@ public abstract class AbstractInputMethodService extends Service
          * AbstractInputMethodSessionImpl.setEnabled()} method.
          */
         public void setSessionEnabled(InputMethodSession session, boolean enabled) {
-            ((AbstractInputMethodSessionImpl)session).setEnabled(enabled);
+            if (session != null){
+                ((AbstractInputMethodSessionImpl)session).setEnabled(enabled);
+            }
         }
         
         /**
@@ -78,7 +80,9 @@ public abstract class AbstractInputMethodService extends Service
          * AbstractInputMethodSessionImpl.revokeSelf()} method.
          */
         public void revokeSession(InputMethodSession session) {
-            ((AbstractInputMethodSessionImpl)session).revokeSelf();
+            if (session != null){
+                ((AbstractInputMethodSessionImpl)session).revokeSelf();
+            }
         }
     }
     
