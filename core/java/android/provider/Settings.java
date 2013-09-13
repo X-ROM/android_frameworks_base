@@ -4528,6 +4528,11 @@ public final class Settings {
         public static final String SCREEN_STATE_GPS = "screen_state_gps";
 
         /**
+         * @hide
+         */
+        public static final String SCREEN_STATE_MOBILE_DATA = "screen_state_mobile_data";
+
+        /**
          * MediaScanner behavior on boot.
          * 0 = enabled
          * 1 = ask (notification)
