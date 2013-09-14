@@ -20,6 +20,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import com.android.internal.telephony.Phone;
 import android.util.Log;
+import android.net.ConnectivityManager;
 
 public class TwoGToggle extends ScreenStateToggle {
     private static final String TAG = "ScreenStateService_TwoGToggle";
@@ -29,6 +30,10 @@ public class TwoGToggle extends ScreenStateToggle {
     }
 
     protected boolean isEnabled(){
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)){
+            return false;
+        }
         return Settings.System.getBoolean(mContext.getContentResolver(), Settings.System.SCREEN_STATE_TWOG, false);
     }
 

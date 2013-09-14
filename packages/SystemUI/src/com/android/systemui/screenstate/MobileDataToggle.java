@@ -32,6 +32,10 @@ public class MobileDataToggle extends ScreenStateToggle {
     }
 
     protected boolean isEnabled(){
+        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (!cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)){
+            return false;
+        }
         return Settings.System.getBoolean(mContext.getContentResolver(), Settings.System.SCREEN_STATE_MOBILE_DATA, false);
     }
 
