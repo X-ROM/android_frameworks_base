@@ -29,6 +29,11 @@ public class TwoGToggle extends ScreenStateToggle {
         super(context);
     }
 
+    // TODO: samsung is creating a handler when switching to 2G :(
+    protected boolean runInThread(){
+        return false;
+    }
+    
     protected boolean isEnabled(){
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (!cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE)){
