@@ -19,13 +19,9 @@ import android.content.Context;
 import android.provider.Settings;
 import android.net.ConnectivityManager;
 import android.util.Log;
-import android.content.Intent;
 
 public class MobileDataToggle extends ScreenStateToggle {
     private static final String TAG = "ScreenStateService_MobileDataToggle";
-
-    public static final String MOBILE_DATA_CHANGED="com.android.internal.telephony.MOBILE_DATA_CHANGED";
-    public static final String NETWORK_MODE = "networkMode";
         
     public MobileDataToggle(Context context){
         super(context);
@@ -65,10 +61,6 @@ public class MobileDataToggle extends ScreenStateToggle {
                 ConnectivityManager cm =
                     (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
                 cm.setMobileDataEnabled(false);
-
-                Intent intent = new Intent(MOBILE_DATA_CHANGED);
-                intent.putExtra(NETWORK_MODE, false);
-                mContext.sendBroadcast(intent);
                 Log.d(TAG, "mobileData = false");
             }
         };
@@ -80,10 +72,6 @@ public class MobileDataToggle extends ScreenStateToggle {
                 ConnectivityManager cm =
                     (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
                 cm.setMobileDataEnabled(true);
-
-                Intent intent = new Intent(MOBILE_DATA_CHANGED);
-                intent.putExtra(NETWORK_MODE, true);
-                mContext.sendBroadcast(intent);
                 Log.d(TAG, "mobileData = true");
             }
         };
