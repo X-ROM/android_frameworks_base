@@ -18,14 +18,17 @@ package com.android.systemui.screenstate;
 import android.content.Context;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.os.Handler;
 
 public abstract class ScreenStateToggle {
     protected Context mContext;
     protected boolean mDoAction = false;
     protected ScreenStateService mService;
+    private Handler mHandler;
 
     public ScreenStateToggle(Context context){
         mContext = context;
+        mHandler = new Handler();
     }
 
     protected abstract boolean isEnabled();
@@ -41,7 +44,7 @@ public abstract class ScreenStateToggle {
             {
                 @Override
                 public void run() {
-                    r.run();
+                    mHandler.post(r);
                 }
             };
 
@@ -56,7 +59,7 @@ public abstract class ScreenStateToggle {
             {
                 @Override
                 public void run() {
-                    r.run();
+                    mHandler.post(r);
                 }
             };
 
