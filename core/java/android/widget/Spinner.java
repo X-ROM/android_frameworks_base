@@ -904,10 +904,8 @@ public class Spinner extends AbsSpinner implements OnClickListener {
         private CharSequence mPrompt;
 
         public void dismiss() {
-            if (mPopup != null) {
-                mPopup.dismiss();
-                mPopup = null;
-            }
+            mPopup.dismiss();
+            mPopup = null;
         }
 
         public boolean isShowing() {
