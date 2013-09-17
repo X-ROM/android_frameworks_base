@@ -4619,6 +4619,16 @@ public final class Settings {
         public static final String KG_CAMERA_WIDGET = "kg_camera_widget";
 
         /**
+         * @hide
+         */
+        public static final String WAKELOCK_BLOCKING_ENABLED = "wakelock_blocking_enabled";
+
+        /**
+         * @hide
+         */
+        public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
+
+        /**
          * ListView Animations
          * 0 == None
          * 1 == Wave (Left)
