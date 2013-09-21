@@ -274,7 +274,7 @@
     <dimen name="overflow_icon_padding">2dp</dimen>
 
     <!-- Active display clock font size -->
-    <dimen name="ad_clock_font_size">75dp</dimen>
+    <dimen name="ad_clock_font_size">60dp</dimen>
 
     <!-- Active display date font size -->
     <dimen name="ad_date_font_size">18dp</dimen>
