@@ -752,8 +752,11 @@ public class ActiveDisplayView extends FrameLayout {
     }
 
     private void registerSensorListener() {
-        if (mProximitySensor != null)
+        if (mProximitySensor != null && mPocketModeEnabled) {
             mSensorManager.registerListener(mSensorListener, mProximitySensor, SensorManager.SENSOR_DELAY_UI);
+        } else {
+            unregisterSensorListener();
+        }
     }
 
     private void unregisterSensorListener() {
