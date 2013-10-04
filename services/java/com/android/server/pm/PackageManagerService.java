@@ -881,8 +881,8 @@ public class PackageManagerService extends IPackageManager.Stub {
                                         0, UserHandle.USER_CURRENT) == 1;
                                 if (privacyGuard) {
                                     mAppOps.setPrivacyGuardSettingForPackage(
-                                           res.pkg.applicationInfo.uid,
-                                            res.pkg.applicationInfo.packageName, true);
+                                            res.pkg.applicationInfo.uid,
+                                            res.pkg.applicationInfo.packageName, true, false);
                                 }
                             }
 
