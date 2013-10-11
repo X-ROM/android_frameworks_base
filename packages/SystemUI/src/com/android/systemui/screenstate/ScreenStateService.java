@@ -37,7 +37,6 @@ public class ScreenStateService extends Service  {
     private BroadcastReceiver mPowerKeyReceiver;
     private TwoGToggle mTwoGToggle;
     private GpsToggle mGpsToggle;
-    private MobileDataToggle mMobileDataToggle;
     private boolean mEnabled = true;
     private Context mContext;
     private List<ScreenStateToggle> fEnabledToggles;
@@ -74,9 +73,7 @@ public class ScreenStateService extends Service  {
         fAllToggles.add(mTwoGToggle);
         mGpsToggle = new GpsToggle(mContext);
         fAllToggles.add(mGpsToggle);
-        mMobileDataToggle = new MobileDataToggle(mContext);
-        fAllToggles.add(mMobileDataToggle);
-                
+        
         updateEnabledToggles();
     }
       
