@@ -46,7 +46,6 @@ public class GpsToggle extends ScreenStateToggle {
     }
 
     private boolean isGpsEnabled(){
-        // TODO: check if gps is available on this device?
         return Settings.Secure.isLocationProviderEnabled(
                 mContext.getContentResolver(), LocationManager.GPS_PROVIDER);
 
