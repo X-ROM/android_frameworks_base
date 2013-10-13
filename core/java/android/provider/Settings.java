@@ -2996,6 +2996,12 @@ public final class Settings {
          * @hide
          */
         public static final String STATUS_BAR_BATTERY = "status_bar_battery";
+
+        /**
+         * Network speed indicator
+          * @hide
+          */
+        public static final String STATUS_BAR_TRAFFIC = "status_bar_traffic";
 		
         /**
          * Whether to show the network status in the status bar
