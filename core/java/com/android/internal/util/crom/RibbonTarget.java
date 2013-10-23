@@ -106,7 +106,7 @@ public class RibbonTarget {
         a = new Intent();
         a.setAction("com.android.systemui.ACTION_HIDE_APP_WINDOW");
         mWm = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
-	    DisplayMetrics metrics = new DisplayMetrics();
+            DisplayMetrics metrics = new DisplayMetrics();
         WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metrics);
         mDismiss = ((dismiss == 1) || ((dismiss == 2) && (sClick.equals("**null**") ? !lClick.startsWith("**") : !sClick.startsWith("**"))));
