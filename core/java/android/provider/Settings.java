@@ -3047,6 +3047,19 @@ public final class Settings {
         public static final String ICON_COLOR_BEHAVIOR = "icon_color_behavior";
 
         /**
+         * Ability to color the status bar
+         * // TODO: Add support to change background of the status bar
+         * @hide
+         */
+        public static final String CUSTOM_STATUS_BAR_COLOR = "custom_status_bar_color";
+
+        /**
+         * Status bar color
+         * @hide
+         */
+        public static final String STATUS_BAR_COLOR = "status_bar_color";
+
+        /**
          * Display style of AM/PM next to clock in status bar
          * 0: Normal display (Eclair stock)
          * 1: Small display (Froyo stock)
@@ -5417,6 +5430,13 @@ public final class Settings {
          * @hide
          */
         public static final String STATUSBAR_BRIGHTNESS_SLIDER = "statusbar_brightness_slider";
+
+        /**
+         * Ability to color the navigation bar
+         * // TODO: Add support to change background of the navigation bar
+         * @hide
+         */
+        public static final String CUSTOM_NAVIGATION_BAR_COLOR = "custom_navigation_bar_color";
 
         /**
          * Navigation bar color.

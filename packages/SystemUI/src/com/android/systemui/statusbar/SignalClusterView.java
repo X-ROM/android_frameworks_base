@@ -248,7 +248,8 @@ public class SignalClusterView
             mWifiGroup.setVisibility(View.VISIBLE);
             Drawable wifiBitmap = mContext.getResources().getDrawable(mWifiStrengthId);
             if (customColor) {
-                wifiBitmap.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                wifiBitmap.setColorFilter(null);
+                wifiBitmap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
             } else {
                 wifiBitmap.clearColorFilter();
             }
@@ -271,7 +272,8 @@ public class SignalClusterView
             if(mMobileStrengthId != 0) {
                 Drawable mobileBitmap = mContext.getResources().getDrawable(mMobileStrengthId);
                 if (customColor) {
-                    mobileBitmap.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    mobileBitmap.setColorFilter(null);
+                    mobileBitmap.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 } else {
                     mobileBitmap.clearColorFilter();
                 }
@@ -294,7 +296,8 @@ public class SignalClusterView
             if(mAirplaneIconId != 0) {
                 Drawable AirplaneBitmap = mContext.getResources().getDrawable(mAirplaneIconId);
                 if (customColor) {
-                    mAirplane.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    mAirplane.setColorFilter(null);
+                    mAirplane.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 } else {
                     mAirplane.clearColorFilter();
                 }
@@ -312,7 +315,8 @@ public class SignalClusterView
             if(mEtherIconId != 0) {
                 Drawable etherBitmap = mContext.getResources().getDrawable(mEtherIconId);
                 if (customColor) {
-                    mEther.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                    mEther.setColorFilter(null);
+                    mEther.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
                 } else {
                     mEther.clearColorFilter();
                 }

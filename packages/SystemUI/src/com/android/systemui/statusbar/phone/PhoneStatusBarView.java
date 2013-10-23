@@ -68,6 +68,11 @@ public class PhoneStatusBarView extends PanelBar {
     PanelView mNotificationPanel, mSettingsPanel;
     private boolean mShouldFade;
 
+    protected boolean mCustomColor;
+    protected int statusColor = -1;
+
+    Handler mHandler;
+
     public PhoneStatusBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -79,11 +84,8 @@ public class PhoneStatusBarView extends PanelBar {
         } catch (NotFoundException ex) {
             mSettingsPanelDragzoneFrac = 0f;
         }
+        updateColor();
         mFullWidthNotifications = mSettingsPanelDragzoneFrac <= 0f;
-        Drawable bg = mContext.getResources().getDrawable(R.drawable.status_bar_background);
-        if(bg instanceof ColorDrawable) {
-            setBackground(new BackgroundAlphaColorDrawable(((ColorDrawable) bg).getColor()));
-        }
     }
 
     public void setBar(PhoneStatusBar bar) {
@@ -99,6 +101,11 @@ public class PhoneStatusBarView extends PanelBar {
         for (PanelView pv : mPanels) {
             pv.setRubberbandingEnabled(!mFullWidthNotifications);
         }
+        mHandler = new Handler();
+        SettingsObserver settingsObserver = new SettingsObserver(mHandler);
+        settingsObserver.observe();
+
+        updateColor();
     }
 
     @Override
@@ -214,6 +221,13 @@ public class PhoneStatusBarView extends PanelBar {
         mShouldFade = true; // now you own the fade, mister
     }
 
+    private boolean isKeyguardEnabled() {
+        KeyguardManager km = (KeyguardManager)mContext.getSystemService(Context.KEYGUARD_SERVICE);
+        if(km == null) return false;
+
+        return km.isKeyguardLocked();
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean barConsumedEvent = mBar.interceptTouchEvent(event);
@@ -285,6 +299,64 @@ public class PhoneStatusBarView extends PanelBar {
         mBar.mTransparencyManager.update();
     }
 
+    /*
+     * ]0 < alpha < 1[
+     */
+    public void setBackgroundAlpha(float alpha) {
+        Drawable bg = getBackground();
+        if(bg == null) return;
+
+        if(bg instanceof BackgroundAlphaColorDrawable) {
+         // if there's a custom color while the lockscreen is on, clear it momentarily, otherwise it won't match.
+            if(statusColor > 0) {
+                if(isKeyguardEnabled()) {
+                    ((BackgroundAlphaColorDrawable) bg).setBgColor(-1);
+                } else {
+                    ((BackgroundAlphaColorDrawable) bg).setBgColor(statusColor);
+                }
+            }
+        }
+        int a = Math.round(alpha * 255);
+        bg.setAlpha(a);
+    }
+
+    class SettingsObserver extends ContentObserver {
+        SettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CUSTOM_STATUS_BAR_COLOR), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_COLOR), false, this);
+            updateColor();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateColor();
+        }
+    }
+
+    protected void updateColor() {
+        mCustomColor = Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.CUSTOM_STATUS_BAR_COLOR, 0) == 1;
+        statusColor = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_COLOR, -1);
+
+        Drawable bg = mContext.getResources().getDrawable(R.drawable.status_bar_background);
+        if (mCustomColor) {
+            setBackgroundColor(statusColor);
+        } else {
+            if(bg instanceof ColorDrawable) {
+                setBackground(new BackgroundAlphaColorDrawable(((ColorDrawable) bg).getColor()));
+            }
+        }
+    }
+
     public void updateShortcutsVisibility() {
         // Notification Shortcuts check for fully expanded panel
         if (mBar.mSettingsButton == null || mBar.mNotificationButton == null) {
@@ -306,5 +378,4 @@ public class PhoneStatusBarView extends PanelBar {
         }
         mBar.updateCarrierAndWifiLabelVisibility(false);
     }
-
 }

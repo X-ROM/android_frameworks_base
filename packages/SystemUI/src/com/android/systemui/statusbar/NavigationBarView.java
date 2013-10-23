@@ -110,7 +110,8 @@ public class NavigationBarView extends LinearLayout {
      */
     int mCurrentUIMode = 0;
 
-    int mNavigationBarColor = -1;
+    private boolean mCustomColor;
+    private int mNavigationBarColor = -1;
 
     private TransparencyManager mTransparencyManager;
 
@@ -360,12 +361,7 @@ public class NavigationBarView extends LinearLayout {
                 lightsOut.addView(spacer3);
             }
         }
-        Drawable bg = mContext.getResources().getDrawable(R.drawable.nav_bar_bg);
-        if(bg instanceof ColorDrawable) {
-            BackgroundAlphaColorDrawable bacd = new BackgroundAlphaColorDrawable(
-                    mNavigationBarColor > 0 ? mNavigationBarColor : ((ColorDrawable) bg).getColor());
-            setBackground(bacd);
-        }
+        updateColor();
         if(mTransparencyManager != null) {
             mTransparencyManager.update();
         }
@@ -1022,11 +1018,13 @@ public class NavigationBarView extends LinearLayout {
                         false,
                         this);
             }
+            updateColor();
             updateSettings();
         }
 
         @Override
         public void onChange(boolean selfChange) {
+            updateColor();
             updateSettings();
         }
     }
@@ -1052,13 +1050,29 @@ public class NavigationBarView extends LinearLayout {
         bg.setAlpha(a);
     }
 
+    protected void updateColor() {
+        mCustomColor = Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.CUSTOM_NAVIGATION_BAR_COLOR, 0) == 1;
+        mNavigationBarColor = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.NAVIGATION_BAR_COLOR, -1);
+
+//        if (mCustomColor) {
+            Drawable bg = mContext.getResources().getDrawable(R.drawable.nav_bar_bg);
+            if(bg instanceof ColorDrawable) {
+                BackgroundAlphaColorDrawable bacd = new BackgroundAlphaColorDrawable(
+                        mNavigationBarColor > 0 ? mNavigationBarColor : ((ColorDrawable) bg).getColor());
+                setBackground(bacd);
+            }
+//        } else {
+//            setBackground(mContext.getResources().getDrawable(R.drawable.nav_bar_bg));
+//        }
+    }
+
     protected void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
 
         mMenuLocation = Settings.System.getInt(resolver,
                 Settings.System.MENU_LOCATION, SHOW_RIGHT_MENU);
-        mNavigationBarColor = Settings.System.getInt(resolver,
-                Settings.System.NAVIGATION_BAR_COLOR, -1);
         mMenuVisbility = Settings.System.getInt(resolver,
                 Settings.System.MENU_VISIBILITY, VISIBILITY_SYSTEM);
         mMenuArrowKeys = Settings.System.getBoolean(resolver,
