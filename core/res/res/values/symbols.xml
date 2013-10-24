@@ -1933,4 +1933,7 @@
   <java-symbol type="style" name="Animation.RecentScreen" />
   <java-symbol type="anim" name="recent_screen_enter" />
   <java-symbol type="anim" name="recent_screen_fade_out" />
+
+  <!-- SMS RIL_REQUEST_SEND_SMS_EXPECT_MORE -->
+  <java-symbol type="bool" name="config_smsUseExpectMore" />
 </resources>
