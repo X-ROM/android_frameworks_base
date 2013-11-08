@@ -23,4 +23,14 @@
     <color name="halo_text_color">#ffcccccc</color>
     <color name="halo_number_text_color">#ffcccccc</color>
     <color name="halo_number_container_color">#ffff0000</color>
+
+    <!-- app sidebar trigger region color -->
+    <color name="trigger_region_color">#8015a0e5</color>
+
+    <!-- app sidebar item text color -->
+    <color name="sidebar_item_text_color">#ffffffff</color>
+
+    <!-- app sidebar item text shadow color -->
+    <color name="sidebar_item_text_shadow_color">#ff000000</color>
+
 </resources>
