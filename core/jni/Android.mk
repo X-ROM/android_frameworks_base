@@ -6,6 +6,7 @@ LOCAL_CFLAGS += -DNO_SUPPORT_JS_BINDING -DQT_NO_WHEELEVENT -DKHTML_NO_XBL
 LOCAL_CFLAGS += -U__APPLE__
 LOCAL_CFLAGS += -Wno-unused-parameter -Wno-int-to-pointer-cast
 LOCAL_CFLAGS += -Wno-maybe-uninitialized -Wno-parentheses
+LOCAL_CFLAGS += -fstrict-aliasing
 LOCAL_CPPFLAGS += -Wno-conversion-null
 
 ifeq ($(TARGET_ARCH), arm)
