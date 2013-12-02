@@ -41,8 +41,10 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -132,6 +134,9 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     TextView mRamText;
 
     MemInfoReader mMemInfoReader = new MemInfoReader();
+
+    private ImageView mRJingles;
+    private AnimationDrawable frameJingles;
 
     public static interface RecentsScrollView {
         public int numItemsInOneScreenful();
@@ -397,6 +402,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                     && (mRecentTaskDescriptions.size() == 0);
             mRecentsNoApps.setAlpha(1f);
             mRecentsNoApps.setVisibility(noApps ? View.VISIBLE : View.INVISIBLE);
+            mRJingles.setVisibility(noApps ? View.VISIBLE : View.INVISIBLE);
             updateClearButton();
             onAnimationEnd(null);
             setFocusable(true);
@@ -416,6 +422,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
         clearAllButton = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CLEAR_RECENTS_BUTTON, Constants.CLEAR_ALL_BUTTON_BOTTOM_RIGHT);
 
+        mClearRecents.setColorFilter(getResources().getColor(R.color.status_bar_recents_app_label_color), Mode.SRC_ATOP);
         if (clearAllButton != Constants.CLEAR_ALL_BUTTON_OFF) {
             mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams)mClearRecents.getLayoutParams();
@@ -531,6 +538,18 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
 
         mRecentsScrim = findViewById(R.id.recents_bg_protect);
         mRecentsNoApps = findViewById(R.id.recents_no_apps);
+
+        mRJingles = (ImageView) findViewById(R.id.recents_jingles);
+        mRJingles.setBackgroundResource(R.drawable.recents_jingles_animation);
+        frameJingles = (AnimationDrawable) mRJingles.getBackground();
+        if (mRJingles != null) {
+            mRJingles.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    frameJingles.start();
+                }
+            });
+        }
 
         mClearRecents = (ImageView) findViewById(R.id.recents_clear);
         if (mClearRecents != null){
