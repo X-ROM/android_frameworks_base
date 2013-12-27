@@ -5113,6 +5113,13 @@ public final class Settings {
         public static final String PEEK_STATE = "peek_state";
 
         /**
+         * Holds the text for the Carrier label. An empty string
+         * will bring the default text back.
+         * @hide
+         */
+        public static final String NOTIFICATION_CUSTOM_CARRIER_LABEL = "notification_custom_carrier_label";
+
+        /**
          * In call dialpad state.
          * 0 = hidden
          * 1 = showing
