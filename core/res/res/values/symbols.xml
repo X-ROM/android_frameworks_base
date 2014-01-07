@@ -1906,6 +1906,8 @@
   <java-symbol type="bool" name="use_motion_accel" />
   <java-symbol type="bool" name="config_setup_mms_data" />
 
+  <java-symbol type="string" name="config_partial_segment_expire_age" />
+
   <!-- Toast Animation -->
   <java-symbol type="style" name="Animation.Toast.Fade" />
   <java-symbol type="style" name="Animation.Toast.SlideRight" />
