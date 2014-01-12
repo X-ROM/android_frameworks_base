@@ -3839,6 +3839,11 @@ public final class Settings {
         public static final String HFM_DISABLE_ADS = "hfm_disable_ads";
 
         /**
+         * Disable FC Notifications
+         * @hide
+         */
+        public static final String DISABLE_FC_NOTIFICATIONS = "disable_fc_notifications";
+        /**
          * Custom System Animations
          *
          * @hide
