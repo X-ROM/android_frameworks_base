@@ -2782,6 +2782,12 @@ public final class Settings {
                 "lockscreen_shortcuts_longpress";
 
         /**
+         * Whether double-tap and hold on the lock glowpad starts the torch
+         * @hide
+         */
+        public static final String LOCKSCREEN_GLOWPAD_TORCH = "lockscreen_glowpad_torch";
+
+        /**
          * Whether or not to show circle battery around the lockscreen ring
          * @hide
          */
