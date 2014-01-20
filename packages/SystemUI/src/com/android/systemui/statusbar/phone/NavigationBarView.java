@@ -928,6 +928,11 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
             Log.d(TAG, "reorient(): rot=" + mDisplay.getRotation());
         }
 
+        // swap to x coordinate if orientation is not in vertical
+        if (mDelegateHelper != null) {
+            mDelegateHelper.setSwapXY(!mVertical);
+        }
+
         setNavigationIconHints(mNavigationIconHints, true);
     }
 
