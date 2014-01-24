@@ -32,13 +32,13 @@ public class BluetoothTile extends QuickSettingsTile implements BluetoothStateCh
 
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 if(enabled){
                     mBluetoothAdapter.disable();
                 }else{
                     mBluetoothAdapter.enable();
-                }
-		if (isFlipTilesEnabled()) {
-                    flipTile(0);
                 }
             }
         };

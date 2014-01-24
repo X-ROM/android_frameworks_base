@@ -28,6 +28,9 @@ public class NetworkAdbTile extends QuickSettingsTile {
         mOnClick = new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 Settings.Secure.putInt(mContext.getContentResolver(),
                         Settings.Secure.ADB_PORT, !getEnabled() ? 5555 : -1);
             }

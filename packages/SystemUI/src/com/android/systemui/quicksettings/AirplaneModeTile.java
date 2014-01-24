@@ -25,6 +25,9 @@ public class AirplaneModeTile extends QuickSettingsTile implements NetworkSignal
         mOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 // Change the system setting
                 Settings.Global.putInt(mContext.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON,
                                         !enabled ? 1 : 0);
@@ -33,9 +36,6 @@ public class AirplaneModeTile extends QuickSettingsTile implements NetworkSignal
                 Intent intent = new Intent(Intent.ACTION_AIRPLANE_MODE_CHANGED);
                 intent.putExtra("state", !enabled);
                 mContext.sendBroadcast(intent);
-		if (isFlipTilesEnabled()) {
-                    flipTile(0);
-                }
             }
         };
         mOnLongClick = new OnLongClickListener() {

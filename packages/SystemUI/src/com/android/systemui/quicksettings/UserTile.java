@@ -50,6 +50,9 @@ public class UserTile extends QuickSettingsTile {
         mOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 mQsc.mBar.collapseAllPanels(true);
                 final UserManager um =
                         (UserManager) mContext.getSystemService(Context.USER_SERVICE);
@@ -73,9 +76,6 @@ public class UserTile extends QuickSettingsTile {
                     } catch (RemoteException e) {
                         Log.e(TAG, "Couldn't show user switcher", e);
                     }
-                }
-		if (isFlipTilesEnabled()) {
-                    flipTile(0);
                 }
             }
         };

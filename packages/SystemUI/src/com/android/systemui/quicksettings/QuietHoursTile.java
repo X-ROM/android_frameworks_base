@@ -23,11 +23,11 @@ public class QuietHoursTile extends QuickSettingsTile {
         mOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Settings.System.putIntForUser(mContext.getContentResolver(), Settings.System.QUIET_HOURS_ENABLED,
-                        mEnabled ? 0 : 1, UserHandle.USER_CURRENT);
-		if (isFlipTilesEnabled()) {
+                if (isFlipTilesEnabled()) {
                     flipTile(0);
                 }
+                Settings.System.putIntForUser(mContext.getContentResolver(), Settings.System.QUIET_HOURS_ENABLED,
+                        mEnabled ? 0 : 1, UserHandle.USER_CURRENT);
             }
         };
         mOnLongClick = new View.OnLongClickListener() {

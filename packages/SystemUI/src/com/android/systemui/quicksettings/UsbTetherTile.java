@@ -26,11 +26,11 @@ public class UsbTetherTile extends QuickSettingsTile {
         mOnClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 if (mUsbConnected) {
                     setUsbTethering(!mUsbTethered);
-		    if (isFlipTilesEnabled()) {
-                    flipTile(0);
-                    }
                 }
             }
         };
