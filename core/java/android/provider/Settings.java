@@ -3617,6 +3617,13 @@ public final class Settings {
         public static final String GESTURES_UP_SWIPE = "gestures_up_swipe";
 
         /**
+         * Should call status sounds be player
+         *
+         * @hide
+         */
+        public static final String CALL_END_SOUND = "call_end_sound";
+
+        /**
          * MediaScanner behavior on boot.
          * 0 = enabled
          * 1 = ask (notification)
