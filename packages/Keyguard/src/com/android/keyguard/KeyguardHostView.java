@@ -735,6 +735,9 @@ public class KeyguardHostView extends KeyguardViewBase {
             case Password:
                 messageId = R.string.kg_too_many_failed_password_attempts_dialog_message;
                 break;
+            case Gesture:
+                messageId = R.string.kg_too_many_failed_gesture_attempts_dialog_message;
+                break;
         }
 
         if (messageId != 0) {
@@ -887,6 +890,7 @@ public class KeyguardHostView extends KeyguardViewBase {
                 case PIN:
                 case Account:
                 case Biometric:
+                case Gesture:
                     finish = true;
                     break;
 
@@ -1251,6 +1255,7 @@ public class KeyguardHostView extends KeyguardViewBase {
                     return R.id.msim_keyguard_sim_puk_view;
                 }
                 return R.id.keyguard_sim_puk_view;
+            case Gesture: return R.id.keyguard_gesture_view;
         }
         return 0;
     }
@@ -1273,6 +1278,7 @@ public class KeyguardHostView extends KeyguardViewBase {
                     return R.layout.msim_keyguard_sim_puk_view;
                 }
                 return R.layout.keyguard_sim_puk_view;
+            case Gesture: return R.layout.keyguard_gesture_view;
             default:
                 return 0;
         }
