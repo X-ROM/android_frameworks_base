@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.aokp;
+package com.android.internal.util.crom;
 
 import android.content.Context;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
 
-public class AwesomeAnimationHelper {
+public class AnimationHelper {
 
     public final static int ANIMATION_DEFAULT = 0;
     public final static int ANIMATION_FADE = 1;

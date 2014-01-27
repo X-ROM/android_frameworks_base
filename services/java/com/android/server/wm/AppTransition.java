@@ -61,7 +61,7 @@ import static com.android.internal.R.styleable.WindowAnimation_wallpaperIntraOpe
 import static com.android.internal.R.styleable.WindowAnimation_wallpaperIntraCloseEnterAnimation;
 import static com.android.internal.R.styleable.WindowAnimation_wallpaperIntraCloseExitAnimation;
 
-import com.android.internal.util.aokp.AwesomeAnimationHelper;
+import com.android.internal.util.crom.AnimationHelper;
 import android.widget.Toast;
 
 // State management of app transitions.  When we are preparing for a
@@ -536,7 +536,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_ACTIVITY_OPEN:
                     if (mActivityAnimations[0] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[0]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[0]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -549,7 +549,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_ACTIVITY_CLOSE:
                     if (mActivityAnimations[1] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[1]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[1]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -562,7 +562,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_TASK_OPEN:
                     if (mActivityAnimations[2] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[2]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[2]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -575,7 +575,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_TASK_CLOSE:
                     if (mActivityAnimations[3] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[3]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[3]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -588,7 +588,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_TASK_TO_FRONT:
                     if (mActivityAnimations[4] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[4]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[4]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -601,7 +601,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_TASK_TO_BACK:
                     if (mActivityAnimations[5] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[5]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[5]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -614,7 +614,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_WALLPAPER_OPEN:
                     if (mActivityAnimations[6] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[6]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[6]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -627,7 +627,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_WALLPAPER_CLOSE:
                     if (mActivityAnimations[7] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[7]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[7]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -640,7 +640,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_WALLPAPER_INTRA_OPEN:
                     if (mActivityAnimations[8] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[8]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[8]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -653,7 +653,7 @@ public class AppTransition implements Dump {
                 case TRANSIT_WALLPAPER_INTRA_CLOSE:
                     if (mActivityAnimations[9] != 0) {
                         mIsResId = true;
-                        int[] animArray = AwesomeAnimationHelper.getAnimations(mActivityAnimations[9]);
+                        int[] animArray = AnimationHelper.getAnimations(mActivityAnimations[9]);
                         animAttr = enter
                                 ? animArray[1]
                                 : animArray[0];
@@ -885,7 +885,7 @@ public class AppTransition implements Dump {
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.ANIMATION_CONTROLS_NO_OVERRIDE), false, this);
             for (int i = 0; i < 10; i++) {
-                    resolver.registerContentObserver(
+	            resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.ACTIVITY_ANIMATION_CONTROLS[i]), false, this);
             }
         }
@@ -897,13 +897,16 @@ public class AppTransition implements Dump {
 
     private void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
-        for (int i = 0; i < 10; i++) {
-            mActivityAnimations[i] = Settings.System.getInt(resolver, Settings.System.ACTIVITY_ANIMATION_CONTROLS[i], 0);
+        for (int i = 0; i < 10; i++) {  
+            mActivityAnimations[i] = Settings.System.getInt(resolver,
+                    Settings.System.ACTIVITY_ANIMATION_CONTROLS[i], 0);
         }
 
-        mNoOverrides = Settings.AOKP.getBoolean(resolver, Settings.System.ANIMATION_CONTROLS_NO_OVERRIDE, false);
+        mNoOverrides = (Settings.System.getInt(resolver,
+                Settings.System.ANIMATION_CONTROLS_NO_OVERRIDE, 0)) == 1;
 
-        int temp = Settings.System.getInt(resolver, Settings.System.ANIMATION_CONTROLS_DURATION, 0);
+        int temp = Settings.System.getInt(resolver,
+                Settings.System.ANIMATION_CONTROLS_DURATION, 0);
         mAnimationDuration = temp * 15;
     }
 }
