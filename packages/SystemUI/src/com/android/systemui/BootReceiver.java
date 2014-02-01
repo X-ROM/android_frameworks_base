@@ -39,12 +39,6 @@ public class BootReceiver extends BroadcastReceiver {
                 Intent loadavg = new Intent(context, com.android.systemui.LoadAverageService.class);
                 context.startService(loadavg);
             }
-
-            // start the power saver service if activated
-            if (Settings.System.getInt(res, Settings.System.POWER_SAVER_ENABLED, 0) != 0) {
-                Intent powersaver = new Intent(context, com.android.systemui.powersaver.PowerSaverService.class);
-                context.startService(powersaver);
-            }
             // Start the cpu info overlay, if activated
             if (Settings.Global.getInt(res, Settings.Global.SHOW_CPU, 0) != 0) {
                 Intent cpuinfo = new Intent(context, com.android.systemui.CPUInfoService.class);
