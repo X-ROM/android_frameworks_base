@@ -23,6 +23,7 @@ import static com.android.internal.util.cm.QSConstants.TILE_BATTERY;
 import static com.android.internal.util.cm.QSConstants.TILE_BLUETOOTH;
 import static com.android.internal.util.cm.QSConstants.TILE_BRIGHTNESS;
 import static com.android.internal.util.cm.QSConstants.TILE_CAMERA;
+import static com.android.internal.util.cm.QSConstants.TILE_CROM;
 import static com.android.internal.util.cm.QSConstants.TILE_DELIMITER;
 import static com.android.internal.util.cm.QSConstants.TILE_FCHARGE;
 import static com.android.internal.util.cm.QSConstants.TILE_GPS;
@@ -35,6 +36,7 @@ import static com.android.internal.util.cm.QSConstants.TILE_NETWORKADB;
 import static com.android.internal.util.cm.QSConstants.TILE_NETWORKMODE;
 import static com.android.internal.util.cm.QSConstants.TILE_NFC;
 import static com.android.internal.util.cm.QSConstants.TILE_PROFILE;
+import static com.android.internal.util.cm.QSConstants.TILE_POWERMENU;
 import static com.android.internal.util.cm.QSConstants.TILE_PERFORMANCE_PROFILE;
 import static com.android.internal.util.cm.QSConstants.TILE_QUIETHOURS;
 import static com.android.internal.util.cm.QSConstants.TILE_RINGER;
@@ -76,6 +78,7 @@ import com.android.systemui.quicksettings.BluetoothTile;
 import com.android.systemui.quicksettings.BrightnessTile;
 import com.android.systemui.quicksettings.BugReportTile;
 import com.android.systemui.quicksettings.CameraTile;
+import com.android.systemui.quicksettings.CromTile;
 //import com.android.systemui.quicksettings.DockBatteryTile;
 import com.android.systemui.quicksettings.GPSTile;
 import com.android.systemui.quicksettings.ImmersiveTile;
@@ -90,6 +93,7 @@ import com.android.systemui.quicksettings.NfcTile;
 import com.android.systemui.quicksettings.PerformanceProfileTile;
 import com.android.systemui.quicksettings.PreferencesTile;
 import com.android.systemui.quicksettings.ProfileTile;
+import com.android.systemui.quicksettings.PowerMenuTile;
 import com.android.systemui.quicksettings.QuickSettingsTile;
 import com.android.systemui.quicksettings.QuickRecordTile;
 import com.android.systemui.quicksettings.QuietHoursTile;
@@ -230,6 +234,10 @@ public class QuickSettingsController {
                 qs = new BrightnessTile(mContext, this);
             } else if (tile.equals(TILE_CAMERA) && cameraSupported) {
                 qs = new CameraTile(mContext, this, mHandler);
+            } else if (tile.equals(TILE_CROM)) {
+                qs = new CromTile(mContext, this);
+            } else if (tile.equals(TILE_POWERMENU)) {
+                qs = new PowerMenuTile(mContext, this);
             } else if (tile.equals(TILE_RINGER)) {
                 qs = new RingerModeTile(mContext, this);
             } else if (tile.equals(TILE_SYNC)) {
