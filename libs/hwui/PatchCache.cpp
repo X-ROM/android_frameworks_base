@@ -130,6 +130,17 @@ void PatchCache::remove(Vector<patch_pair_t>& patchesToRemove, Res_png_9patch* p
 
 void PatchCache::removeDeferred(Res_png_9patch* patch) {
     Mutex::Autolock _l(mLock);
+
+    // Assert that patch is not already garbage
+    size_t count = mGarbage.size();
+    for (size_t i = 0; i < count; i++) {
+        if (patch == mGarbage[i]) {
+            patch = NULL;
+            break;
+        }
+    }
+    LOG_ALWAYS_FATAL_IF(patch == NULL);
+
     mGarbage.push(patch);
 }
 
