@@ -3833,6 +3833,12 @@ public final class Settings {
         public static final String CALL_END_SOUND = "call_end_sound";
 
         /**
+         * Disable ads (HFM)
+         * @hide
+         */
+        public static final String HFM_DISABLE_ADS = "hfm_disable_ads";
+
+        /**
          * Custom System Animations
          *
          * @hide
