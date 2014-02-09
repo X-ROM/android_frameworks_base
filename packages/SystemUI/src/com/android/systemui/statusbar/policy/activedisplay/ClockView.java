@@ -108,7 +108,7 @@ public class ClockView extends RelativeLayout {
             // No longer used, uncomment if we decide to use AM/PM indicator again
             mAmPmTextView = (TextView) parent.findViewById(R.id.am_pm);
             if (mAmPmTextView != null && tf != null) {
-                mAmPmTextView.setTypeface(tf);
+                mAmPmTextView.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
             }
 
             String[] ampm = new DateFormatSymbols().getAmPmStrings();
@@ -267,11 +267,15 @@ public class ClockView extends RelativeLayout {
     }
 
     public void updateTime() {
+        // update typeface
+        mTimeView.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+        mDateView.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+
         mCalendar.setTimeInMillis(System.currentTimeMillis());
         String newTime = DateFormat.format(mFormat, mCalendar).toString();
         SpannableString span = new SpannableString(newTime);
         int colonIndex = newTime.indexOf(':');
-        span.setSpan(new StyleSpan(Typeface.BOLD), 0, colonIndex, 0);
+        span.setSpan(new TypefaceSpan("sans-serif-thin"), 0, colonIndex, 0);
         span.setSpan(new TypefaceSpan("sans-serif-thin"), colonIndex + 1, newTime.length(), 0);
         mTimeView.setText(span);
         mAmPm.setIsMorning(mCalendar.get(Calendar.AM_PM) == 0);

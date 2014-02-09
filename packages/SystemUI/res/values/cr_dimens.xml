@@ -31,10 +31,10 @@
     <dimen name="ad_clock_font_size">75dp</dimen>
 
     <!-- Active display date font size -->
-    <dimen name="ad_date_font_size">18dp</dimen>
+    <dimen name="ad_date_font_size">16dp</dimen>
 
     <!-- AM/PM size in active display -->
-    <dimen name="ad_ampm_font_size">32dp</dimen>
+    <dimen name="ad_ampm_font_size">27dp</dimen>
 
     <!-- Network stats text size -->
     <dimen name="network_stats_text_size">8dp</dimen>
