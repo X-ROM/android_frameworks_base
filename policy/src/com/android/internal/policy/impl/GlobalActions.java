@@ -125,7 +125,6 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mHasVibrator;
     private Profile mChosenProfile;
     private final boolean mShowSilentToggle;
-    private boolean showReboot;
 
     /**
      * @param context everything needs a context :(
@@ -171,12 +170,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
      * @param keyguardLocked True if keyguard is locked
      */
     public void showDialog(boolean keyguardLocked, boolean isDeviceProvisioned) {
-       showDialog(keyguardLocked, isDeviceProvisioned, false);
-    }
-
-    public void showDialog(boolean keyguardLocked, boolean isDeviceProvisioned, boolean mShowReboot) {
-  	showReboot = mShowReboot;
-  	mKeyguardLocked = keyguardLocked;
+        mKeyguardLocked = keyguardLocked;
         mDeviceProvisioned = isDeviceProvisioned;
         if (mDialog != null) {
             if (mUiContext != null) {
@@ -324,7 +318,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
 
         // next: reboot
         // only shown if enabled, enabled by default
-        showReboot = Settings.System.getIntForUser(cr,
+        boolean showReboot = Settings.System.getIntForUser(cr,
                 Settings.System.POWER_MENU_REBOOT_ENABLED, 1, UserHandle.USER_CURRENT) == 1;
         if (showReboot) {
             mItems.add(
