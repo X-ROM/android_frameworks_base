@@ -5340,6 +5340,12 @@ public final class Settings {
         public static final String ADB_PORT = "adb_port";
 
         /**
+         * Whether to reboot the device if an unknown ADB host is detected while screen is locked
+         * @hide
+         */
+        public static final String ADB_PARANOID = "adb_paranoid";
+
+        /**
          * Whether to display the ADB notification.
          * @hide
          */
