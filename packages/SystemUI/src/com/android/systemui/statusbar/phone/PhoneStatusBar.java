@@ -476,15 +476,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.MENU_VISIBILITY),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-<<<<<<< HEAD
                     Settings.System.STATUS_BAR_CUSTOM_HEADER), false, this);
-=======
                     Settings.System.PIE_CONTROLS), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.EXPANDED_DESKTOP_STATE), false, this,
+                    Settings.System.IMMERSIVE_MODE), false, this,
                     UserHandle.USER_ALL);
->>>>>>> b815e2c... Frameworks: SlimPie (1/2)
             update();
         }
 
@@ -555,7 +552,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.PIE_CONTROLS))) {
                 attachPieContainer(isPieEnabled());
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.EXPANDED_DESKTOP_STATE))) {
+                    Settings.System.IMMERSIVE_MODE))) {
                 mNavigationBarOverlay.setIsExpanded(isExpanded());
             }
 
@@ -590,7 +587,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private boolean isExpanded() {
         return Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_STATE, 0,
+                Settings.System.IMMERSIVE_MODE, 0,
                 UserHandle.USER_CURRENT) == 1;
     }
 
@@ -833,13 +830,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         if (mRecreating) {
         } else {
             addActiveDisplayView();
-<<<<<<< HEAD
             /* ChaosLab: GestureAnywhere - BEGIN */
             addGestureAnywhereView();
             /* ChaosLab: GestureAnywhere - END */
-=======
             addNavigationBarCallback(mNavigationBarView);
->>>>>>> b815e2c... Frameworks: SlimPie (1/2)
         }
 
         // Setup pie container if enabled

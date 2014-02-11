@@ -106,11 +106,8 @@ import com.android.systemui.recent.RecentTasksLoader;
 import com.android.systemui.recent.RecentsActivity;
 import com.android.systemui.recent.TaskDescription;
 import com.android.systemui.statusbar.phone.KeyguardTouchDelegate;
-<<<<<<< HEAD
 import com.android.systemui.statusbar.halo.Halo;
-=======
 import com.android.systemui.statusbar.phone.NavigationBarOverlay;
->>>>>>> b815e2c... Frameworks: SlimPie (1/2)
 import com.android.systemui.statusbar.policy.NotificationRowLayout;
 import com.android.systemui.statusbar.policy.activedisplay.ActiveDisplayView;
 import com.android.systemui.statusbar.policy.PieController;
@@ -1691,7 +1688,6 @@ public abstract class BaseStatusBar extends SystemUI implements
         return lp;
     }
 
-<<<<<<< HEAD
     @ChaosLab(name="GestureAnywhere", classification=Classification.NEW_METHOD)
     protected void addGestureAnywhereView() {
         mGestureAnywhereView = (GestureAnywhereView)View.inflate(
@@ -1725,7 +1721,7 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         return lp;
     }
-=======
+
     public void addNavigationBarCallback(NavigationBarCallback callback) {
         mNavigationCallbacks.add(callback);
     }
@@ -1761,7 +1757,6 @@ public abstract class BaseStatusBar extends SystemUI implements
         }
     }
 
->>>>>>> b815e2c... Frameworks: SlimPie (1/2)
     private boolean isScreenPortrait() {
         return mContext.getResources()
             .getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;

@@ -237,7 +237,6 @@
     <!-- Network stats text size
     <dimen name="network_stats_text_size">10dp</dimen> -->
 
-<<<<<<< HEAD
     <!-- HALO geometry -->
     <dimen name="halo_bubble_size">75dp</dimen>
     <dimen name="halo_number_size">24dp</dimen>
@@ -250,7 +249,7 @@
     <dimen name="halo_speech_vpadding_top">3dp</dimen>
     <dimen name="halo_speech_vpadding_bottom">3dp</dimen>
     <dimen name="halo_content_max_width">250dp</dimen>
-=======
+
     <!-- Pie controls -->
     <!-- Padding between the pie controls and the screen border -->
     <dimen name="pie_padding">4dp</dimen>
@@ -272,6 +271,5 @@
     <dimen name="pie_sysinfo_radius">165dp</dimen>
     <dimen name="pie_sysinfo_second_layer_radius">255dp</dimen>
     <dimen name="pie_sysinfo_height">85sp</dimen>
->>>>>>> b815e2c... Frameworks: SlimPie (1/2)
 
 </resources>
