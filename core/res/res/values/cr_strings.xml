@@ -229,6 +229,5 @@
     <string name="setting_confirmation_yes">Yes</string>
     <string name="setting_confirmation_no">No</string>
 
-    <string name="immersive_mode_confirmation_bottom">Swipe up from the bottom to exit full screen.</string>
 
 </resources>
