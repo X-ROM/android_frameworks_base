@@ -37,13 +37,13 @@ public class Immersive extends Activity  {
         if (value == 2) {
             value = Settings.System.getIntForUser(
                     getContentResolver(),
-                    Settings.System.EXPANDED_DESKTOP_STATE,
+                    Settings.System.IMMERSIVE_MODE,
                     0, UserHandle.USER_CURRENT_OR_SELF) == 1 ? 0 : 1;
         }
 
         Settings.System.putIntForUser(
                 getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_STATE,
+                Settings.System.IMMERSIVE_MODE,
                 value, UserHandle.USER_CURRENT_OR_SELF);
         this.finish();
     }
