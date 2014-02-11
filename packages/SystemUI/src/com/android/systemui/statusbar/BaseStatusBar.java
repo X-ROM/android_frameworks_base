@@ -636,7 +636,7 @@ public abstract class BaseStatusBar extends SystemUI implements
                 final String packageNameF = sbn.getPackageName();
                 final PendingIntent contentIntent = sbn.getNotification().contentIntent;
                 boolean expanded = Settings.System.getInt(mContext.getContentResolver(),
-                        Settings.System.EXPANDED_DESKTOP_STATE, 0) == 1;
+                        Settings.System.IMMERSIVE_MODE, 0) == 1;
 
                 if (packageNameF == null) return false;
                 if (v.getWindowToken() == null) return false;
