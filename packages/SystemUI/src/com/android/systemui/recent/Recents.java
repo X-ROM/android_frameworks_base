@@ -27,7 +27,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -82,25 +81,10 @@ public class Recents extends SystemUI implements RecentsComponent {
                 }
                 final Resources res = mContext.getResources();
 
-                boolean largeThumbs = Settings.System.getIntForUser(mContext.getContentResolver(),
-                        Settings.System.LARGE_RECENT_THUMBS, 0, UserHandle.USER_CURRENT) == 1;
-                boolean HorizontalRecent = Settings.System.getIntForUser(mContext.getContentResolver(),
-                        Settings.System.RECENTS_CUSTOM_UI_MODE, 0, UserHandle.USER_CURRENT) == 1;
-
-		if (HorizontalRecent) { //get horizontal width
-			float thumbWidth = res.getDimensionPixelSize(R.dimen.custom_status_bar_recents_thumbnail_width);
-		}else{ //get default width
-			float thumbWidth = res.getDimensionPixelSize(R.dimen.status_bar_recents_thumbnail_width);
-		}
-                if (largeThumbs && !HorizontalRecent) thumbWidth = (thumbWidth * 2) - 25;
-		if (HorizontalRecent) { //get static height
-			float thumbHeight = res.getDimensionPixelSize(R.dimen.custom_status_bar_recents_thumbnail_height);
-		}else{ //get dynamic height
-			int screenHeight = res.getDisplayMetrics().heightPixels;
-			int screenWidth = res.getDisplayMetrics().widthPixels;
-			float thumbHeight = (screenHeight > screenWidth ? screenWidth : screenHeight) * thumbWidth /
-				(screenHeight > screenWidth ? screenHeight : screenWidth);
-		}
+                float thumbWidth = res
+                        .getDimensionPixelSize(R.dimen.status_bar_recents_thumbnail_width);
+                float thumbHeight = res
+                        .getDimensionPixelSize(R.dimen.status_bar_recents_thumbnail_height);
                 if (first == null) {
                     throw new RuntimeException("Recents thumbnail is null");
                 }
@@ -111,6 +95,7 @@ public class Recents extends SystemUI implements RecentsComponent {
                         throw new RuntimeException("Recents thumbnail is null");
                     }
                 }
+
 
                 DisplayMetrics dm = new DisplayMetrics();
                 display.getMetrics(dm);
@@ -138,10 +123,11 @@ public class Recents extends SystemUI implements RecentsComponent {
                     x = (int) ((dm.widthPixels - width) / 2f + appLabelLeftMargin + appLabelWidth
                             + thumbBgPadding + thumbLeftMargin);
                     y = (int) (dm.heightPixels
-                            - thumbHeight
+                            - res.getDimensionPixelSize(R.dimen.status_bar_recents_thumbnail_height)
                             - thumbBgPadding);
                     if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
-                        x = dm.widthPixels - x - (int) thumbWidth;
+                        x = dm.widthPixels - x - res.getDimensionPixelSize(
+                                R.dimen.status_bar_recents_thumbnail_width);
                     }
 
                 } else { // if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -175,7 +161,8 @@ public class Recents extends SystemUI implements RecentsComponent {
                             .getDimensionPixelSize(R.dimen.status_bar_recents_item_padding);
                     float recentsScrollViewRightPadding = res
                             .getDimensionPixelSize(R.dimen.status_bar_recents_right_glow_margin);
-                    x = (int) (dm.widthPixels - thumbWidth
+                    x = (int) (dm.widthPixels - res
+                            .getDimensionPixelSize(R.dimen.status_bar_recents_thumbnail_width)
                             - thumbBgPadding - recentsItemRightPadding
                             - recentsScrollViewRightPadding);
                     y = (int) ((dm.heightPixels - statusBarHeight - height) / 2f + thumbTopMargin
