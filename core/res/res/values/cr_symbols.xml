@@ -126,9 +126,6 @@
   <java-symbol type="string" name="perf_profile_bal" />
   <java-symbol type="string" name="perf_profile_perf" />
 
-  <!-- UI theme mode -->
-  <java-symbol type="integer" name="config_uiThemeMode" />
-
   <!-- EdgeGesture service -->
   <java-symbol type="dimen" name="edge_gesture_trigger_distance" />
   <java-symbol type="dimen" name="edge_gesture_perpendicular_distance" />

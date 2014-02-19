@@ -289,8 +289,6 @@ public class ResourcesManager {
                 boolean isDefaultDisplay = (displayId == Display.DEFAULT_DISPLAY);
                 DisplayMetrics dm = defaultDisplayMetrics;
                 final boolean hasOverrideConfiguration = key.hasOverrideConfiguration();
-                final boolean uiThemeChanged = (changes & 
-ActivityInfo.CONFIG_UI_THEME_MODE) != 0;
                 boolean themeChanged = (changes & ActivityInfo.CONFIG_THEME_RESOURCE) != 0;
                 if (themeChanged) {
                     AssetManager am = r.getAssets();
@@ -317,7 +315,7 @@ ActivityInfo.CONFIG_UI_THEME_MODE) != 0;
                 } else {
                     r.updateConfiguration(config, dm, compat);
                 }
-                if (uiThemeChanged) {
+                if (themeChanged) {
                     r.updateStringCache();
                 }
                 //Slog.i(TAG, "Updated app resources " + v.getKey()
