@@ -3874,10 +3874,10 @@ public final class Settings {
         public static final String POWER_MENU_REBOOT_ENABLED = "power_menu_reboot_enabled";
 
         /**
-         * Whether the power menu immersive is enabled
+         * Whether power menu expanded desktop is enabled
          * @hide
          */
-        public static final String POWER_MENU_IMMERSIVE_ENABLED = "power_menu_immersive_enabled";
+        public static final String POWER_MENU_EXPANDED_DESKTOP_ENABLED = "power_menu_expanded_desktop_enabled";
 
        /**
         * Whether power saver is enabled
@@ -4328,11 +4328,7 @@ public final class Settings {
         public static final String CUSTOM_OVERFLING_DISTANCE = "custom_overfling_distance";
 
         /**
-         * Immersive mode global actions switch
-         * 0 = no
-         * 1 = yes
-         * 2 = hide navbar
-         * 3 = hide statusbar
+         * Expanded desktop on/off state
          * @hide
          */
         public static final String IMMERSIVE_MODE = "immersive_mode";
