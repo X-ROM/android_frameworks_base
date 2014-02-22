@@ -1695,7 +1695,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
 
             if (Settings.System.getIntForUser(resolver,
-                        Settings.System.IMMERSIVE_MODE, 0,
+                        Settings.System.EXPANDED_DESKTOP_STATE, 0,
                         UserHandle.USER_CURRENT) == 0) {
                 mExpandedDesktopMode = 0;
             } else {

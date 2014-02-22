@@ -481,7 +481,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.PIE_CONTROLS), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.IMMERSIVE_MODE), false, this,
+                    Settings.System.EXPANDED_DESKTOP_STATE), false, this,
                     UserHandle.USER_ALL);
             update();
         }
@@ -553,7 +553,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.PIE_CONTROLS))) {
                 attachPieContainer(isPieEnabled());
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.IMMERSIVE_MODE))) {
+                    Settings.System.EXPANDED_DESKTOP_STATE))) {
                 mNavigationBarOverlay.setIsExpanded(isExpanded());
             }
 
@@ -588,7 +588,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private boolean isExpanded() {
         return Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.IMMERSIVE_MODE, 0,
+                Settings.System.EXPANDED_DESKTOP_STATE, 0,
                 UserHandle.USER_CURRENT) == 1;
     }
 
