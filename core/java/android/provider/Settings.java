@@ -4337,7 +4337,7 @@ public final class Settings {
          * Expanded desktop on/off state
          * @hide
          */
-        public static final String IMMERSIVE_MODE = "immersive_mode";
+        public static final String EXPANDED_DESKTOP_STATE = "expanded_desktop_state";
 
         /**
          * Show or hide clock
