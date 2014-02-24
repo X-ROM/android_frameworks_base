@@ -4238,6 +4238,7 @@ public final class Settings {
                 "wallpaper_close",
                 "wallpaper_intra_open",
                 "wallpaper_intra_close",
+		"toast_animation",
         };
 
         /**
