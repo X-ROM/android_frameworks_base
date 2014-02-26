@@ -75,4 +75,5 @@
     <!-- Used by selector -->
     <color name="card_pressed">#7e3c3c3c</color>
 
+    <color name="ad_notification_background_color">#3fff</color>
 </resources>
