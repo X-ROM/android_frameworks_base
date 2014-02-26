@@ -4571,6 +4571,7 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_BLUR_BEHIND = "lockscreen_blur_behind";
+        public static final String LOCKSCREEN_BLUR_RADIUS = "lockscreen_blur_radius";
 
         /**
          * Whether to show the network status in the status bar
