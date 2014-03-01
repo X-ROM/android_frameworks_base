@@ -82,6 +82,7 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wimax.WimaxHelper;
 import android.net.wimax.WimaxManagerConstants;
 import android.nfc.NfcManager;
+import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.Debug;
@@ -600,6 +601,12 @@ class ContextImpl extends Context {
         registerService(CONSUMER_IR_SERVICE, new ServiceFetcher() {
             public Object createService(ContextImpl ctx) {
                 return new ConsumerIrManager(ctx);
+            }});
+        registerService(BATTERY_SERVICE, new ServiceFetcher() {
+            public Object createService(ContextImpl ctx) {
+            IBinder b = ServiceManager.getService(BATTERY_SERVICE);
+            IBatteryService service = IBatteryService.Stub.asInterface(b);
+            return new BatteryManager(service, ctx);
             }});
 
         registerService(PROFILE_SERVICE, new ServiceFetcher() {
