@@ -218,6 +218,11 @@ public class Clock extends TextView implements DemoMode {
         if (mDemoMode) return;
         mCalendar.setTimeInMillis(System.currentTimeMillis());
         setText(getSmallTime());
+        if (Settings.System.getInt(mContext.getContentResolver(), Settings.System.STATUS_BAR_BOLD_CLOCK, 0) == 1) {
+        setTypeface(null, Typeface.BOLD);
+        } else {
+        setTypeface(null, Typeface.NORMAL);
+        }
     }
 
     private final CharSequence getSmallTime() {
