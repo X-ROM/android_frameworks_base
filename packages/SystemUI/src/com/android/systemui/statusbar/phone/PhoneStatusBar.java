@@ -294,6 +294,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private boolean mNotificationShortcutsHideCarrier;
     FrameLayout.LayoutParams lpCarrierLabel;
 
+    private SignalClusterView mSignalClusterView;
+
     // position
     int[] mPositionTmp = new int[2];
     boolean mExpandedVisible;
@@ -976,11 +978,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mNetworkController = new NetworkController(mContext);
         mBluetoothController = new BluetoothController(mContext);
         mRotationLockController = new RotationLockController(mContext);
-        final SignalClusterView signalCluster =
-                (SignalClusterView)mStatusBarView.findViewById(R.id.signal_cluster);
 
-        mNetworkController.addSignalCluster(signalCluster);
-        signalCluster.setNetworkController(mNetworkController);
+        mSignalClusterView = (SignalClusterView) mStatusBarView.findViewById(R.id.signal_cluster);
+        mNetworkController.addSignalCluster(mSignalClusterView);
+        mSignalClusterView.setNetworkController(mNetworkController);
 
         if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
             mMSimNetworkController = new MSimNetworkController(mContext);
@@ -1042,7 +1043,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         } else {
             mNetworkController = new NetworkController(mContext);
             final SignalClusterView signalCluster =
-                (SignalClusterView)mStatusBarView.findViewById(R.id.signal_cluster);
+                    (SignalClusterView) mStatusBarView.findViewById(R.id.signal_cluster);
 
             mNetworkController.addSignalCluster(signalCluster);
             signalCluster.setNetworkController(mNetworkController);
