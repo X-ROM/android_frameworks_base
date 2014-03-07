@@ -4907,6 +4907,13 @@ public final class Settings {
          */
         public static final String RECENTS_RAM_BAR_ACTIVE_APPS_COLOR = "recents_ram_bar_active_apps_color";
 
+       /**
+         * Custom Recent toggle
+         *
+         * @hide
+         */
+        public static final String CUSTOM_RECENT_TOGGLE = "custom_recent_toggle";
+
         /**
          * Custom navigation bar intent and action configuration
          * @hide
