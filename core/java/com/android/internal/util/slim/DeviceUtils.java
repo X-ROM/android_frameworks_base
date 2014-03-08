@@ -36,7 +36,7 @@ import java.util.List;
 
 public class DeviceUtils {
 
-    private static final String SETTINGS_METADATA_NAME = "com.crom.tools";
+    private static final String SETTINGS_METADATA_NAME = "com.android.settings";
 
     // Device types
     private static final int DEVICE_PHONE  = 0;

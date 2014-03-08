@@ -27,7 +27,7 @@ import java.net.URISyntaxException;
 
 public class AppHelper {
 
-    private static final String SETTINGS_METADATA_NAME = "com.crom.tools";
+    private static final String SETTINGS_METADATA_NAME = "com.android.settings";
 
     public static String getProperSummary(Context context, PackageManager pm,
             Resources settingsResources, String action, String values, String entries) {
