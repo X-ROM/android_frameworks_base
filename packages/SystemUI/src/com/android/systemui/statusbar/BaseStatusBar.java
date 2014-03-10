@@ -396,8 +396,8 @@ public abstract class BaseStatusBar extends SystemUI implements
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
-        mCustomRecent = Settings.System.getIntForUser   (
-                        mContext.getContentResolver(), Settings.System.CUSTOM_RECENT, false);
+        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                Settings.System.CUSTOM_RECENT, false);
 
         if(mCustomRecent){
             cRecents = new RecentController(mContext);
