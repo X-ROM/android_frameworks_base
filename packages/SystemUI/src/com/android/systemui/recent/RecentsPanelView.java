@@ -427,7 +427,6 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
         clearAllButton = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CLEAR_RECENTS_BUTTON, Constants.CLEAR_ALL_BUTTON_BOTTOM_RIGHT);
 
-        mClearRecents.setColorFilter(getResources().getColor(R.color.status_bar_recents_app_label_color), Mode.SRC_ATOP);
         if (clearAllButton != Constants.CLEAR_ALL_BUTTON_OFF) {
             mClearRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
             FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams)mClearRecents.getLayoutParams();
