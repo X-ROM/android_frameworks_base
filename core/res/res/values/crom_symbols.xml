@@ -202,4 +202,8 @@
   <java-symbol type="drawable" name="ic_lock_navbar" />
   <java-symbol type="string" name="disable_navigation_pie_error" />
 
+  <!-- On-The-Go -->
+  <java-symbol type="string" name="global_action_onthego" />
+  <java-symbol type="drawable" name="ic_lock_onthego" />
+
 </resources>
