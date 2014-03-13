@@ -518,13 +518,14 @@ public class BatteryMeterView extends View implements DemoMode {
         } else if (mBatteryColor == -2) {
             mBatteryPaint.setColor(mContext.getResources().getColor(
                     R.color.batterymeter_charge_color));
-            mFramePaint.setColor(mContext.getResources().getColor(
-                    R.color.batterymeter_frame_color));
         } else {
-            mBatteryPaint.setColor(!mCustomColor ? (DevUtils.extractRGB(mBatteryColor))
-                    : (DevUtils.extractRGB(systemColor)) | OPAQUE_MASK);
-            mFramePaint.setColor(!mCustomColor ? (DevUtils.extractRGB(mBatteryColor))
-                    : (DevUtils.extractRGB(systemColor)) | OPAQUE_MASK);
+            if (mCustomColor) {
+                mBatteryPaint.setColor(DevUtils.extractRGB(systemColor) | OPAQUE_MASK);
+                mFramePaint.setColor(DevUtils.extractRGB(systemColor) | FRAME_MASK);
+            } else {
+                mBatteryPaint.setColor(DevUtils.extractRGB(mBatteryColor) | OPAQUE_MASK);
+                mFramePaint.setColor(DevUtils.extractRGB(mBatteryColor) | FRAME_MASK);
+            }
         }
 
         if (tracker.plugged) {
