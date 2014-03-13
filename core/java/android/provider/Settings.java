@@ -3936,6 +3936,11 @@ public final class Settings {
         public static final String SYSTEM_PROFILES_ENABLED = "system_profiles_enabled";
 
         /**
+         * @hide
+         */
+        public static final String RECENTS_PANEL_COLOR = "recents_panel_color";
+
+        /**
          * Whether the power menu reboot menu is enabled
          * @hide
          */
