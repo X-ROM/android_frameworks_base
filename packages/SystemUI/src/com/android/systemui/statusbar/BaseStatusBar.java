@@ -172,7 +172,6 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected boolean mHaloEnabled;
     protected boolean mHaloActive;
     public boolean mHaloTaskerActive = false;
-    protected ImageView mHaloButton;
 
     // Search panel
     protected SearchPanelView mSearchPanelView;
@@ -544,10 +543,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 Settings.System.HALO_ENABLED, 0) == 1;
         mHaloActive = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.HALO_ACTIVE, 0) == 1;
-
-        mHaloButton.setImageResource(mHaloActive
-                ? R.drawable.ic_notify_halo_pressed
-                : R.drawable.ic_notify_halo_normal);
 
         if (!mHaloEnabled) {
             mHaloActive = false;
