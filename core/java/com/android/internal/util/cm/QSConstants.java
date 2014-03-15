@@ -37,7 +37,8 @@ public class QSConstants {
         public static final String TILE_IMMERSIVE = "toggleImmersive";
         public static final String TILE_MUSIC = "toggleMusic";
         public static final String TILE_SCREENSHOT = "toggleScreenshot";
-        public static final String TILE_THEME = "toggleTheme"; 
+        public static final String TILE_THEME = "toggleTheme";
+        public static final String TILE_ONTHEGO = "toggleOnTheGo";
 
         public static final String TILE_DELIMITER = "|";
         public static ArrayList<String> TILES_DEFAULT = new ArrayList<String>();

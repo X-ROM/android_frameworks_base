@@ -52,6 +52,7 @@ import static com.android.internal.util.cm.QSConstants.TILE_WIFIAP;
 import static com.android.internal.util.cm.QSConstants.TILE_WIMAX;
 import static com.android.internal.util.cm.QSConstants.TILE_QUICKRECORD;
 import static com.android.internal.util.cm.QSConstants.TILE_THEME;
+import static com.android.internal.util.cm.QSConstants.TILE_ONTHEGO;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -111,6 +112,7 @@ import com.android.systemui.quicksettings.WiFiDisplayTile;
 import com.android.systemui.quicksettings.WiFiTile;
 import com.android.systemui.quicksettings.WifiAPTile;
 import com.android.systemui.quicksettings.ThemeTile;
+import com.android.systemui.quicksettings.OnTheGoTile;
 
 
 import java.util.ArrayList;
@@ -307,6 +309,8 @@ public class QuickSettingsController {
                 qs = new QuickRecordTile(mContext, this);
             } else if (tile.equals(TILE_THEME)) {
                 qs = new ThemeTile(mContext, this);
+            } else if (tile.contains(TILE_ONTHEGO)) {
+                qs = new OnTheGoTile(mContext, this);
             } else if (tile.equals(TILE_NETWORKADB)) {
                 mTileStatusUris.add(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED));
                 if (QSUtils.adbEnabled(resolver)) {
