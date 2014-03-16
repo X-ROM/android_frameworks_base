@@ -398,14 +398,14 @@ public abstract class BaseStatusBar extends SystemUI implements
         mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
                 Settings.System.CUSTOM_RECENT, false);
 
+        mLocale = mContext.getResources().getConfiguration().locale;
+        mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
+
         if(mCustomRecent){
-            cRecents = new RecentController(mContext);
+            cRecents = new RecentController(mContext, mLayoutDirection);
         }else{
             mRecents = getComponent(RecentsComponent.class);
         }
-
-        mLocale = mContext.getResources().getConfiguration().locale;
-        mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
 
         mStatusBarContainer = new FrameLayout(mContext);
 
