@@ -19,10 +19,13 @@ public class CromTile extends QuickSettingsTile{
 
             @Override
             public void onClick(View v) {
+                if (isFlipTilesEnabled()) {
+                    flipTile(0);
+                }
                 qsc.mBar.collapseAllPanels(true);
                 Intent intent = new Intent("android.intent.action.MAIN");
                 intent.setComponent(ComponentName
-                        .unflattenFromString("com.crom.tools/.SettingsActivity"));
+                        .unflattenFromString("com.android.settings.Settings$CtoolSettings"));
                 intent.addCategory("android.intent.category.LAUNCHER");
                 startSettingsActivity(intent);
             }
