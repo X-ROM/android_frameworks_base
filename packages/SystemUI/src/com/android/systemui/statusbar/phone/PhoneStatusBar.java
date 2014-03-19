@@ -2282,11 +2282,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     final int FLIP_DURATION = (FLIP_DURATION_IN + FLIP_DURATION_OUT);
 
     Animator mScrollViewAnim, mFlipSettingsViewAnim, mNotificationButtonAnim,
-<<<<<<< HEAD
-        mSettingsButtonAnim, mClearButtonAnim, mRibbonViewAnim, mAddTileButtonAnim;
-=======
-        mSettingsButtonAnim, mHaloButtonAnim, mClearButtonAnim, mRibbonViewAnim;
->>>>>>> parent of 98349c5... Remove Halo Icon from statusbar
+        mSettingsButtonAnim, mHaloButtonAnim, mClearButtonAnim, mRibbonViewAnim, mAddTileButtonAnim;
 
     @Override
     public void animateExpandNotificationsPanel() {
