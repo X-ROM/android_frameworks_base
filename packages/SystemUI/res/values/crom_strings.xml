@@ -267,4 +267,6 @@
     <string name="onthego_front_camera">Use front camera</string>
     <string name="onthego_service_toggle">Automatically restart service</string>
 
+    <string name="app_stop_item_title">Kill app</string>
+
 </resources>
