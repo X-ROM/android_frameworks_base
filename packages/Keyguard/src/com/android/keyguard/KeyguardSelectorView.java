@@ -92,7 +92,6 @@ public class KeyguardSelectorView extends LinearLayout implements KeyguardSecuri
     private boolean mGlowTorch;
     private boolean mGlowTorchRunning;
     private boolean mUserRotation;
-    private float mBatteryLevel;
     private LockPatternUtils mLockPatternUtils;
     private SecurityMessageDisplay mSecurityMessageDisplay;
     private Drawable mBouncerFrame;
