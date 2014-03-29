@@ -4062,6 +4062,13 @@ public final class Settings {
         public static final String CLEAR_RECENTS_BUTTON = "clear_recents_button";
 
         /**
+         * Circle memory indicator in recents panel view
+         * 0 - off, 1 - top left, 2 - top right, 3 - bottom left, 4 - bottom right
+         * @hide
+         */
+        public static final String CIRCLE_MEM_BUTTON = "circle_mem_button";
+
+        /**
          * Screenshot toggle delay
          * @hide
          */

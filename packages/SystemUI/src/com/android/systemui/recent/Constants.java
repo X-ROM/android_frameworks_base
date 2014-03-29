@@ -27,4 +27,9 @@ public class Constants {
     public static final int CLEAR_ALL_BUTTON_TOP_RIGHT = 2;
     public static final int CLEAR_ALL_BUTTON_BOTTOM_LEFT = 3;
     public static final int CLEAR_ALL_BUTTON_BOTTOM_RIGHT = 4;
+    public static final int CIRCLE_MEM_BUTTON_OFF = 0;
+    public static final int CIRCLE_MEM_BUTTON_TOP_LEFT = 1;
+    public static final int CIRCLE_MEM_BUTTON_TOP_RIGHT = 2;
+    public static final int CIRCLE_MEM_BUTTON_BOTTOM_LEFT = 3;
+    public static final int CIRCLE_MEM_BUTTON_BOTTOM_RIGHT = 4;
 }
