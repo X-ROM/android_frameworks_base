@@ -60,7 +60,6 @@ import com.android.systemui.R;
 import com.android.systemui.screenshot.DeleteScreenshot;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -186,14 +185,14 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
             return null;
         }
 
-        // By default, AsyncTask sets the worker thread to have background thread priority, so
-        // give highest possible priority to worker thread
-        Process.setThreadPriority(Process.THREAD_PRIORITY_URGENT_DISPLAY);
+        // By default, AsyncTask sets the worker thread to have background thread priority, so bump
+        // it back up so that we save a little quicker.
+        Process.setThreadPriority(Process.THREAD_PRIORITY_FOREGROUND);
 
         Context context = params[0].context;
         Bitmap image = params[0].image;
         Resources r = context.getResources();
-        OutputStream outStream = null;
+
         try {
             // Create screenshot directory if it doesn't exist
             mScreenshotDir.mkdirs();
@@ -243,8 +242,10 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
                      PendingIntent.getBroadcast(context, 0, deleteIntent,
                      PendingIntent.FLAG_CANCEL_CURRENT));
 
-            outStream = resolver.openOutputStream(uri);
-            image.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            OutputStream out = resolver.openOutputStream(uri);
+            image.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.flush();
+            out.close();
 
             // update file size in the database
             values.clear();
@@ -254,22 +255,18 @@ class SaveImageInBackgroundTask extends AsyncTask<SaveImageInBackgroundData, Voi
             params[0].imageUri = uri;
             params[0].image = null;
             params[0].result = 0;
-        } catch (IOException e) {
-            // may be thrown if external storage is not mounted
+        } catch (Exception e) {
+            // IOException/UnsupportedOperationException may be thrown if external storage is not
+            // mounted
+            params[0].clearImage();
             params[0].result = 1;
-        } catch (UnsupportedOperationException noOperation) {
-            // may be thrown if external storage is not mounted
-            params[0].result = 1;
-        } finally {
-            if (outStream != null) {
-                try {
-                    outStream.flush();
-                    outStream.close();
-                } catch (IOException ioe) {
-                    // let it go
-                }
-            }
         }
+
+        // Recycle the bitmap data
+        if (image != null) {
+            image.recycle();
+        }
+
         return params[0];
     }
 
