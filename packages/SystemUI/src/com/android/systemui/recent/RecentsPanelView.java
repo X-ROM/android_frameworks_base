@@ -469,7 +469,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
         clearAllButton = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.CLEAR_RECENTS_BUTTON, Constants.CLEAR_ALL_BUTTON_BOTTOM_RIGHT);
 
-        mClearRecents.setColorFilter(getResources().getColor(R.color.status_bar_recents_app_label_color), Mode.SRC_ATOP);
+        mClearAllRecents.setColorFilter(getResources().getColor(R.color.status_bar_recents_app_label_color), Mode.SRC_ATOP);
         if (clearAllButton != Constants.CLEAR_ALL_BUTTON_OFF) {
             mClearAllRecents.setVisibility(noApps ? View.GONE : View.VISIBLE);
 
@@ -1187,8 +1187,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
 
     @Override
     protected boolean fitSystemWindows(Rect insets) {
-        if (mClearRecents != null) {
-            MarginLayoutParams lp = (MarginLayoutParams) mClearRecents.getLayoutParams();
+        if (mClearAllRecents != null) {
+            MarginLayoutParams lp = (MarginLayoutParams) mClearAllRecents.getLayoutParams();
             switch (clearAllButton) {
                 case Constants.CLEAR_ALL_BUTTON_TOP_LEFT:
                     lp.topMargin = insets.top;
@@ -1207,7 +1207,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                     lp.rightMargin = insets.right;
                     break;
             }
-            mClearRecents.setLayoutParams(lp);
+            mClearAllRecents.setLayoutParams(lp);
         }
 
         return super.fitSystemWindows(insets);
@@ -1278,7 +1278,7 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                             | Intent.FLAG_ACTIVITY_MULTIPLE_TASK
                             | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS
-                            | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            | Intent.FLAG_ACTIVITY_NO_HISTORY);mClearRecents
                     mContext.startActivityAsUser(intent, new UserHandle(UserHandle.USER_CURRENT));
                 }
             });
