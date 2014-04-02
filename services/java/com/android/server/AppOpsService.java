@@ -213,14 +213,12 @@ public class AppOpsService extends IAppOpsService.Stub {
                 Iterator<Ops> it = pkgs.values().iterator();
                 while (it.hasNext()) {
                     Ops ops = it.next();
-                    int curUid = -1;
+                    int curUid;
                     try {
                         curUid = mContext.getPackageManager().getPackageUid(ops.packageName,
                                 UserHandle.getUserId(ops.uid));
                     } catch (NameNotFoundException e) {
-                        if ("android".equals(ops.packageName)) {
-                            curUid = Process.SYSTEM_UID;
-                        }
+                        curUid = -1;
                     }
                     if (curUid != ops.uid) {
                         Slog.i(TAG, "Pruning old package " + ops.packageName
@@ -709,8 +707,6 @@ public class AppOpsService extends IAppOpsService.Stub {
             packageName = "root";
         } else if (uid == Process.SHELL_UID) {
             packageName = "com.android.shell";
-        } else if (uid == Process.SYSTEM_UID) {
-            packageName = "android";
         }
         Ops ops = pkgOps.get(packageName);
         if (ops == null) {
@@ -719,7 +715,7 @@ public class AppOpsService extends IAppOpsService.Stub {
             }
             // This is the first time we have seen this package name under this uid,
             // so let's make sure it is valid.
-            if (uid != 0 && uid != Process.SYSTEM_UID) {
+            if (uid != 0) {
                 final long ident = Binder.clearCallingIdentity();
                 try {
                     int pkgUid = -1;
