@@ -171,6 +171,7 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected Halo mHalo = null;
     protected Ticker mTicker;
     protected boolean mHaloEnabled;
+    protected boolean mHaloButtonVisible = true;
     protected boolean mHaloActive;
     public boolean mHaloTaskerActive = false;
     protected ImageView mHaloButton;
@@ -540,6 +541,17 @@ public abstract class BaseStatusBar extends SystemUI implements
         }
         updateNotificationIcons();
         updateHalo();
+    }
+
+    protected void updateHaloButton() {
+        if (!mHaloEnabled) {
+            mHaloButtonVisible = false;
+        } else {
+            mHaloButtonVisible = true;
+        }
+        if (mHaloButton != null) {
+            mHaloButton.setVisibility(mHaloButtonVisible && !mHaloActive ? View.VISIBLE : View.GONE);
+        }
     }
 
     protected void updateHalo() {
