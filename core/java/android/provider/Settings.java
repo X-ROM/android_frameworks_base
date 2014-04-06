@@ -3443,36 +3443,6 @@ public final class Settings {
         public static final String SYSTEM_ICON_COLOR = "system_icon_color";
 
         /**
-         * @hide
-         */
-        public static final String WAKELOCK_BLOCKING_ENABLED = "wakelock_blocking_enabled";
-
-        /**
-         * @hide
-         */
-        public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
-
-        /**
-         * @hide
-         */
-        public static final String START_SCREEN_STATE_SERVICE = "start_screen_state_service";
-
-        /**
-         * @hide
-         */
-        public static final String SCREEN_STATE_TWOG = "screen_state_twog";
-
-        /**
-         * @hide
-         */
-        public static final String SCREEN_STATE_GPS = "screen_state_gps";
-
-        /**
-         * @hide
-         */
-        public static final String SCREEN_STATE_MOBILE_DATA = "screen_state_mobile_data";
-
-        /**
          * Whether to use a separate delay for "slide to unlock" and security
          * lock
          * @hide
