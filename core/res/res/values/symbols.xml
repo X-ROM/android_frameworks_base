@@ -1883,6 +1883,8 @@
   <!-- Lock screen always show battery -->
   <java-symbol type="string" name="lockscreen_discharging" />
 
+  <java-symbol type="bool" name="use_motion_accel" />
+
   <!-- Progress Bar -->
   <java-symbol type="dimen" name="spb_default_stroke_width" />
   <java-symbol type="dimen" name="spb_default_stroke_separator_length" />
