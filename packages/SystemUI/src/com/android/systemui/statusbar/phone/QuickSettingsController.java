@@ -233,7 +233,7 @@ public class QuickSettingsController {
                     qs = new WiFiTile(mContext, this, mStatusBarService.mNetworkController);
                 }
             } else if (tile.equals(TILE_GPS)) {
-                qs = new GPSTile(mContext, this);
+                qs = new GPSTile(mContext, this, mStatusBarService.mLocationController);
             } else if (tile.equals(TILE_FCHARGE)) {
                 qs = new FChargeTile(mContext, this, mHandler);
             } else if (tile.equals(TILE_BLUETOOTH) && bluetoothSupported) {
