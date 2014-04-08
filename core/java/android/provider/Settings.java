@@ -4640,13 +4640,6 @@ public final class Settings {
         public static final String HALO_NUMBER_CONTAINER_COLOR = "halo_number_container_color";
 
         /**
-         * Performance profile
-         * @see config_perf_profile_prop in frameworks/base/core/res/res/values/config.xml
-         * @hide
-         */
-        public static final String PERFORMANCE_PROFILE = "performance_profile";
-
-        /**
          * Config for advanced power menu
          *
          * @hide
