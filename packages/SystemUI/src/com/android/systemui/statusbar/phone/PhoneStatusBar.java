@@ -731,6 +731,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mCurrUiThemeMode = mContext.getResources().getConfiguration().uiThemeMode;
 
+        mLocationController = new LocationController(mContext);
+        mBatteryController = new BatteryController(mContext);
+        mBluetoothController = new BluetoothController(mContext);
+        mRotationLockController = new RotationLockController(mContext);
+
         super.start(); // calls createAndAddWindows()
 
         addNavigationBar();
@@ -1016,10 +1021,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         setAreThereNotifications();
 
         // Other icons
-        mLocationController = new LocationController(mContext); // will post a notification
-        mBatteryController = new BatteryController(mContext);
-        mBluetoothController = new BluetoothController(mContext);
-        mRotationLockController = new RotationLockController(mContext);
 
         mNotificationShortcutsHideCarrier = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.NOTIFICATION_SHORTCUTS_HIDE_CARRIER, 0, UserHandle.USER_CURRENT) != 0;
