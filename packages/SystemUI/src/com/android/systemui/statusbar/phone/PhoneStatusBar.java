@@ -138,7 +138,6 @@ import com.android.systemui.statusbar.policy.MSimNetworkController;
 import com.android.systemui.statusbar.policy.NetworkController;
 import com.android.systemui.statusbar.policy.NotificationRowLayout;
 import com.android.systemui.statusbar.policy.OnSizeChangedListener;
-import com.android.systemui.statusbar.policy.RotationLockController;
 
 import com.android.systemui.omni.StatusHeaderMachine;
 
@@ -211,7 +210,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     BatteryController mBatteryController;
     LocationController mLocationController;
     NetworkController mNetworkController;
-    RotationLockController mRotationLockController;
     MSimNetworkController mMSimNetworkController;
 
     int mNaturalBarHeight = -1;
@@ -719,7 +717,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mLocationController = new LocationController(mContext);
         mBatteryController = new BatteryController(mContext);
         mBluetoothController = new BluetoothController(mContext);
-        mRotationLockController = new RotationLockController(mContext);
 
         super.start(); // calls createAndAddWindows()
 
