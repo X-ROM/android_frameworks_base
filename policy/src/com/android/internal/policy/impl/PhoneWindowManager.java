@@ -2602,10 +2602,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     cancelPreloadRecentApps();
                 }
 
-                if (mRecentAppsPreloaded && mDoubleTapOnHomeBehavior != KEY_ACTION_APP_SWITCH) {
-                    cancelPreloadRecentApps();
-                }
-
                 if (canceled) {
                     Log.i(TAG, "Ignoring HOME; event canceled.");
                     return -1;
