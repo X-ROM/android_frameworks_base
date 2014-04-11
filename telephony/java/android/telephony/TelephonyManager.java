@@ -467,16 +467,6 @@ public class TelephonyManager {
     }
 
     /**
-     * {@hide}
-     */
-
-    public void toggleMobileNetwork(int networkState) {
-        try {
-            getITelephony().toggleMobileNetwork(networkState);
-        } catch (RemoteException e) { }
-    }
-
-    /**
      * The contents of the /proc/cmdline file
      */
     private static String getProcCmdLine()

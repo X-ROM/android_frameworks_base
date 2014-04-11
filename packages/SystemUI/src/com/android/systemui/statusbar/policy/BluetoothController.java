@@ -38,7 +38,6 @@ public class BluetoothController extends BroadcastReceiver {
     }
 
     private boolean mEnabled = false;
-    private boolean mConnected = false;
 
     private Set<BluetoothDevice> mBondedDevices = new HashSet<BluetoothDevice>();
     private Set<BluetoothDevice> mConnectedDevices = new HashSet<BluetoothDevice>();
@@ -47,25 +46,6 @@ public class BluetoothController extends BroadcastReceiver {
             new ArrayList<BluetoothStateChangeCallback>();
     private ArrayList<BluetoothDeviceConnectionStateChangeCallback> mConnectionChangeCallbacks =
             new ArrayList<BluetoothDeviceConnectionStateChangeCallback>();
-
-    private ArrayList<BluetoothConnectionChangeCallback> mConnectionCallbacks =
-            new ArrayList<BluetoothConnectionChangeCallback>();
-
-    public interface BluetoothConnectionChangeCallback {
-        public void onBluetoothConnectionChange(boolean on, boolean connected);
-    }
-
-    public void unregisterController(Context context) {
-        context.unregisterReceiver(this);
-    }
-
-    public void addConnectionStateChangedCallback(BluetoothConnectionChangeCallback cnt) {
-        mConnectionCallbacks.add(cnt);
-    }
-
-    public void removeConnectionStateChangedCallback(BluetoothConnectionChangeCallback cnt) {
-        mConnectionCallbacks.remove(cnt);
-    }    
 
     public BluetoothController(Context context) {
 
@@ -121,11 +101,6 @@ public class BluetoothController extends BroadcastReceiver {
         if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
             handleAdapterStateChange(
                     intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR));
-
-	    } else if (action.equals(BluetoothAdapter.ACTION_CONNECTION_STATE_CHANGED)) {
-            handleConnectedStateChange(intent.getIntExtra(BluetoothAdapter.EXTRA_CONNECTION_STATE,
-                        BluetoothAdapter.STATE_DISCONNECTED));
-
         }
 
         if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)
@@ -171,19 +146,10 @@ public class BluetoothController extends BroadcastReceiver {
         mEnabled = (adapterState == BluetoothAdapter.STATE_ON);
     }
 
-    private void handleConnectedStateChange(int connected) {
-        mConnected = (connected == BluetoothAdapter.STATE_CONNECTED);
-    }
-
     private void fireCallbacks() {
         for (BluetoothStateChangeCallback cb : mChangeCallbacks) {
             cb.onBluetoothStateChange(mEnabled);
         }
-
-        for (BluetoothConnectionChangeCallback cnt : mConnectionCallbacks) {
-            cnt.onBluetoothConnectionChange(mEnabled, mConnected);
-        }
-
     }
 
     private void fireConnectionStateChanged(BluetoothDevice device) {
