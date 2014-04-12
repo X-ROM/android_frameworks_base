@@ -47,7 +47,7 @@ import com.android.systemui.statusbar.policy.RotationLockController;
 import java.io.File;
 
 public class SettingsPanelView extends PanelView {
-    public static final boolean DEBUG_GESTURES = false;
+    public static final boolean DEBUG_GESTURES = true;
 
     private QuickSettingsController mQS;
     private QuickSettingsContainerView mQSContainer;
