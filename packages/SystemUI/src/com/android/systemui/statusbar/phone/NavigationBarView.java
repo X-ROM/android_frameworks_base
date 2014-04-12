@@ -356,7 +356,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
         return mCurrentView.findViewById(R.id.camera_button);
     }
 
-    public void updateResources() {
+    /*public void updateResources() {
         getIcons(mContext.getResources());
         for (int i = 0; i < mRotatedViews.length; i++) {
             ViewGroup container = (ViewGroup) mRotatedViews[i];
@@ -367,7 +367,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
     }
 
     private void updateKeyButtonViewResources(ViewGroup container) {
-        ViewGroup midNavButtons = (ViewGroup) container.findViewById(R.id.mid_nav_buttons);
+        ViewGroup midNavButtons = (ViewGroup) container.findViewById(R.id.nav_buttons);
         if (midNavButtons != null) {
             final int nChildern = midNavButtons.getChildCount();
             for (int i = 0; i < nChildern; i++) {
@@ -377,11 +377,11 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
                 }
             }
         }
-        KeyButtonView kbv = (KeyButtonView) findViewById(R.id.six);
+        KeyButtonView kbv = (KeyButtonView) findViewById(R.id.nav_buttons);
         if (kbv != null) {
             kbv.updateResources();
         }
-    }
+    }*/
 
     @Override
     public void setLayoutDirection(int layoutDirection) {
