@@ -117,10 +117,10 @@ public class KeyButtonView extends ImageView {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public void updateResources() {	115
-        if (mGlowBgId != 0) {	116
-            mGlowBG = mContext.getResources().getDrawable(mGlowBgId);	117
-        }	118
+    public void updateResources() {
+        if (mGlowBgId != 0) {
+            mGlowBG = mContext.getResources().getDrawable(mGlowBgId);
+        }
     }
 
     public void setClickAction(String action) {
