@@ -2598,7 +2598,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mHomeConsumed = false;
                     return -1;
                 }
-                if (!virtualKey && mDoubleTapOnHomeBehavior != KEY_ACTION_APP_SWITCH) {
+                if (mDoubleTapOnHomeBehavior != KEY_ACTION_APP_SWITCH) {
                     cancelPreloadRecentApps();
                 }
 
@@ -2628,7 +2628,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
 
                 // Delay handling home if a double-tap is possible.
-                if (!virtualKey && mDoubleTapOnHomeBehavior != KEY_ACTION_NOTHING) {
+                if (mDoubleTapOnHomeBehavior != KEY_ACTION_NOTHING) {
                     mHandler.removeCallbacks(mHomeDoubleTapTimeoutRunnable); // just in case
                     mHomeDoubleTapPending = true;
                     mHandler.postDelayed(mHomeDoubleTapTimeoutRunnable,
@@ -2674,7 +2674,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     performKeyAction(mDoubleTapOnHomeBehavior);
                     // Eat the key up event so it won't take us home
                     mHomeConsumed = true;
-                } else if (!virtualKey && !mPreloadedRecentApps &&
+                } else if (!mPreloadedRecentApps &&
                         (mLongPressOnHomeBehavior == KEY_ACTION_APP_SWITCH ||
                         mDoubleTapOnHomeBehavior == KEY_ACTION_APP_SWITCH)) {
                     preloadRecentApps();
