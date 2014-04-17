@@ -1522,6 +1522,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             return;
         }
 
+        mNavigationBarCanMove = DeviceUtils.isPhone(mContext) ?
+                Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_CAN_MOVE, 1,
+                    UserHandle.USER_CURRENT) == 1
+                : false;
+        mNavigationRingConfig = ButtonsHelper.getNavRingConfig(mContext);
+
+        mNavigationBarView.setNavigationBarCanMove(mNavigationBarCanMove);
+
         prepareNavigationBarView();
 
         mWindowManager.addView(mNavigationBarView, getNavigationBarLayoutParams());
