@@ -1437,6 +1437,7 @@
   <java-symbol type="style" name="Widget.Button.NumPadKey" />
   <java-symbol type="style" name="TextAppearance.NumPadKey" />
   <java-symbol type="style" name="TextAppearance.NumPadKey.Klondike" />
+  <java-symbol type="bool" name="config_batterySdCardAccessibility" />
 
   <!-- From services -->
   <java-symbol type="anim" name="screen_rotate_0_enter" />
