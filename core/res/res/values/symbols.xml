@@ -1886,6 +1886,9 @@
   <!-- Lock screen always show battery -->
   <java-symbol type="string" name="lockscreen_discharging" />
 
+  <!-- Download Icon -->
+  <java-symbol type="drawable" name="stat_sys_downloadicon" />
+
   <java-symbol type="bool" name="use_motion_accel" />
 
   <!-- Progress Bar -->
