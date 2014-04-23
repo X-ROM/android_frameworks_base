@@ -314,4 +314,9 @@
 
     <string name="status_bar_notification_hide_icon_packages">Hide app\'s icons</string>
 
+    <!-- Sim Slot number -->
+    <string name="sim_slot">1</string>
+    <string name="sim_slot_2">2</string>
+    <string name="sim_slot_3">3</string>
+
 </resources>
