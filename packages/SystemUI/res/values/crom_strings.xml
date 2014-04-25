@@ -319,4 +319,9 @@
     <string name="sim_slot_2">2</string>
     <string name="sim_slot_3">3</string>
 
+    <!-- Switch apps -->
+    <string name="enable_switch_apps_title">Switch apps</string>
+    <string name="enable_switch_apps_message">Would you like to switch to previous app when long pressing recents?</string>
+    <string name="recents_switch">@string/enable_switch_apps_title</string>
+
 </resources>
