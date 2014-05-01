@@ -12,6 +12,7 @@ package android {
     field public static final java.lang.String ACCESS_LOCATION_EXTRA_COMMANDS = "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS";
     field public static final java.lang.String ACCESS_MOCK_LOCATION = "android.permission.ACCESS_MOCK_LOCATION";
     field public static final java.lang.String ACCESS_NETWORK_STATE = "android.permission.ACCESS_NETWORK_STATE";
+    field public static final java.lang.String ACCESS_SUPERUSER = "android.permission.ACCESS_SUPERUSER";
     field public static final java.lang.String ACCESS_SURFACE_FLINGER = "android.permission.ACCESS_SURFACE_FLINGER";
     field public static final java.lang.String ACCESS_WIFI_STATE = "android.permission.ACCESS_WIFI_STATE";
     field public static final java.lang.String ACCOUNT_MANAGER = "android.permission.ACCOUNT_MANAGER";
@@ -4512,6 +4513,7 @@ package android.app.admin {
     field public static final int PASSWORD_QUALITY_ALPHANUMERIC = 327680; // 0x50000
     field public static final int PASSWORD_QUALITY_BIOMETRIC_WEAK = 32768; // 0x8000
     field public static final int PASSWORD_QUALITY_COMPLEX = 393216; // 0x60000
+    field public static final int PASSWORD_QUALITY_GESTURE_WEAK = 524288; // 0x80000
     field public static final int PASSWORD_QUALITY_NUMERIC = 131072; // 0x20000
     field public static final int PASSWORD_QUALITY_SOMETHING = 65536; // 0x10000
     field public static final int PASSWORD_QUALITY_UNSPECIFIED = 0; // 0x0
@@ -8796,6 +8798,8 @@ package android.gesture {
     field public static final int GESTURE_STROKE_TYPE_SINGLE = 0; // 0x0
     field public static final int ORIENTATION_HORIZONTAL = 0; // 0x0
     field public static final int ORIENTATION_VERTICAL = 1; // 0x1
+    field protected boolean mClearPerformedGesture;
+    field protected boolean mInputEnabled;
   }
 
   public static abstract interface GestureOverlayView.OnGestureListener {
@@ -10538,7 +10542,6 @@ package android.hardware {
     method public int getJpegQuality();
     method public int getJpegThumbnailQuality();
     method public android.hardware.Camera.Size getJpegThumbnailSize();
-    method public java.lang.String getPowerMode();
     method public int getMaxExposureCompensation();
     method public int getMaxNumDetectedFaces();
     method public int getMaxNumFocusAreas();
@@ -10548,6 +10551,7 @@ package android.hardware {
     method public int getMinExposureCompensation();
     method public int getPictureFormat();
     method public android.hardware.Camera.Size getPictureSize();
+    method public java.lang.String getPowerMode();
     method public android.hardware.Camera.Size getPreferredPreviewSizeForVideo();
     method public int getPreviewFormat();
     method public void getPreviewFpsRange(int[]);
@@ -11729,6 +11733,7 @@ package android.media {
     method public void setRingerMode(int);
     method public deprecated void setRouting(int, int, int);
     method public void setSpeakerphoneOn(boolean);
+    method public void setStreamMaxVolume(int, int);
     method public void setStreamMute(int, boolean);
     method public void setStreamSolo(int, boolean);
     method public void setStreamVolume(int, int, int);
@@ -13238,6 +13243,7 @@ package android.media.audiofx {
     field public static final java.util.UUID EFFECT_TYPE_LOUDNESS_ENHANCER;
     field public static final java.util.UUID EFFECT_TYPE_NS;
     field public static final java.util.UUID EFFECT_TYPE_PRESET_REVERB;
+    field public static final java.util.UUID EFFECT_TYPE_STEREOWIDE;
     field public static final java.util.UUID EFFECT_TYPE_VIRTUALIZER;
     field public static final int ERROR = -1; // 0xffffffff
     field public static final int ERROR_BAD_VALUE = -4; // 0xfffffffc
@@ -13276,12 +13282,15 @@ package android.media.audiofx {
 
   public class BassBoost extends android.media.audiofx.AudioEffect {
     ctor public BassBoost(int, int) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.RuntimeException, java.lang.UnsupportedOperationException;
+    method public short getCenterFrequency();
     method public android.media.audiofx.BassBoost.Settings getProperties() throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
     method public short getRoundedStrength() throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
     method public boolean getStrengthSupported();
+    method public void setCenterFrequency(short) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
     method public void setParameterListener(android.media.audiofx.BassBoost.OnParameterChangeListener);
     method public void setProperties(android.media.audiofx.BassBoost.Settings) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
     method public void setStrength(short) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
+    field public static final int PARAM_CENTER_FREQUENCY = 2; // 0x2
     field public static final int PARAM_STRENGTH = 1; // 0x1
     field public static final int PARAM_STRENGTH_SUPPORTED = 0; // 0x0
   }
@@ -13429,6 +13438,28 @@ package android.media.audiofx {
     ctor public PresetReverb.Settings();
     ctor public PresetReverb.Settings(java.lang.String);
     field public short preset;
+  }
+
+  public class StereoWide extends android.media.audiofx.AudioEffect {
+    ctor public StereoWide(int, int) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.RuntimeException, java.lang.UnsupportedOperationException;
+    method public android.media.audiofx.StereoWide.Settings getProperties() throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
+    method public short getRoundedStrength() throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
+    method public boolean getStrengthSupported();
+    method public void setParameterListener(android.media.audiofx.StereoWide.OnParameterChangeListener);
+    method public void setProperties(android.media.audiofx.StereoWide.Settings) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
+    method public void setStrength(short) throws java.lang.IllegalArgumentException, java.lang.IllegalStateException, java.lang.UnsupportedOperationException;
+    field public static final int PARAM_STRENGTH = 1; // 0x1
+    field public static final int PARAM_STRENGTH_SUPPORTED = 0; // 0x0
+  }
+
+  public static abstract interface StereoWide.OnParameterChangeListener {
+    method public abstract void onParameterChange(android.media.audiofx.StereoWide, int, int, short);
+  }
+
+  public static class StereoWide.Settings {
+    ctor public StereoWide.Settings();
+    ctor public StereoWide.Settings(java.lang.String);
+    field public short strength;
   }
 
   public class Virtualizer extends android.media.audiofx.AudioEffect {
@@ -17587,7 +17618,7 @@ package android.os {
 
   public abstract class CountDownTimer {
     ctor public CountDownTimer(long, long);
-    method public final void cancel();
+    method public final synchronized void cancel();
     method public abstract void onFinish();
     method public abstract void onTick(long);
     method public final synchronized android.os.CountDownTimer start();
@@ -29503,6 +29534,7 @@ package android.view.inputmethod {
     ctor public EditorInfo();
     method public int describeContents();
     method public void dump(android.util.Printer, java.lang.String);
+    method public final void formalTextInput(boolean);
     method public final void makeCompatible(int);
     method public void writeToParcel(android.os.Parcel, int);
     field public static final android.os.Parcelable.Creator CREATOR;
@@ -32223,6 +32255,55 @@ package android.widget {
   public static abstract interface SlidingDrawer.OnDrawerScrollListener {
     method public abstract void onScrollEnded();
     method public abstract void onScrollStarted();
+  }
+
+  public class SmoothProgressBar extends android.widget.ProgressBar {
+    ctor public SmoothProgressBar(android.content.Context);
+    ctor public SmoothProgressBar(android.content.Context, android.util.AttributeSet);
+    ctor public SmoothProgressBar(android.content.Context, android.util.AttributeSet, int);
+    method public void applyStyle(int);
+    method public void setSmoothProgressDrawableColor(int);
+    method public void setSmoothProgressDrawableColors(int[]);
+    method public void setSmoothProgressDrawableInterpolator(android.view.animation.Interpolator);
+    method public void setSmoothProgressDrawableMirrorMode(boolean);
+    method public void setSmoothProgressDrawableReversed(boolean);
+    method public void setSmoothProgressDrawableSectionsCount(int);
+    method public void setSmoothProgressDrawableSeparatorLength(int);
+    method public void setSmoothProgressDrawableSpeed(float);
+    method public void setSmoothProgressDrawableStrokeWidth(float);
+  }
+
+  public class SmoothProgressDrawable extends android.graphics.drawable.Drawable implements android.graphics.drawable.Animatable {
+    method public void draw(android.graphics.Canvas);
+    method public int getOpacity();
+    method public boolean isRunning();
+    method public void setAlpha(int);
+    method public void setColor(int);
+    method public void setColorFilter(android.graphics.ColorFilter);
+    method public void setColors(int[]);
+    method public void setInterpolator(android.view.animation.Interpolator);
+    method public void setMirrorMode(boolean);
+    method public void setReversed(boolean);
+    method public void setSectionsCount(int);
+    method public void setSeparatorLength(int);
+    method public void setSpeed(float);
+    method public void setStrokeWidth(float);
+    method public void start();
+    method public void stop();
+  }
+
+  public static class SmoothProgressDrawable.Builder {
+    ctor public SmoothProgressDrawable.Builder(android.content.Context);
+    method public android.widget.SmoothProgressDrawable build();
+    method public android.widget.SmoothProgressDrawable.Builder color(int);
+    method public android.widget.SmoothProgressDrawable.Builder colors(int[]);
+    method public android.widget.SmoothProgressDrawable.Builder interpolator(android.view.animation.Interpolator);
+    method public android.widget.SmoothProgressDrawable.Builder mirrorMode(boolean);
+    method public android.widget.SmoothProgressDrawable.Builder reversed(boolean);
+    method public android.widget.SmoothProgressDrawable.Builder sectionsCount(int);
+    method public android.widget.SmoothProgressDrawable.Builder separatorLength(int);
+    method public android.widget.SmoothProgressDrawable.Builder speed(float);
+    method public android.widget.SmoothProgressDrawable.Builder strokeWidth(float);
   }
 
   public final class Space extends android.view.View {
