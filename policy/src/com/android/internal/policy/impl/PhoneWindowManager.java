@@ -2737,7 +2737,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
             }
-            if (!virtualKey) {
+            if (!virtualKey && !keyguardOn) {
                 return -1;
             }
         } else if (keyCode == KeyEvent.KEYCODE_SEARCH) {
@@ -3000,7 +3000,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
             }
-            if (!virtualKey) {
+            if (!virtualKey && !keyguardOn) {
                 return -1;
             }
         }
