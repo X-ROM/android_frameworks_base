@@ -120,6 +120,8 @@ public class RecentsPanelView extends FrameLayout implements OnItemClickListener
     private CircleMemoryMeter mRecentsMemoryIndicator;
     private int clearAllButton;
 
+    private RecentsActivity mRecentsActivity;
+
     private static Set<Integer> sLockedTasks = new HashSet<Integer>();
 
     private RecentsActivity mRecentsActivity;
