@@ -4285,6 +4285,10 @@ public class Activity extends ContextThemeWrapper
         }
     }
 
+    /**
+     * Hide from public api
+     * @hide
+     */
     public void finishFloating() {
         mMainThread.performFinishFloating();
     }
@@ -5313,16 +5317,11 @@ public class Activity extends ContextThemeWrapper
             mWindow.setCloseOnTouchOutsideIfNotSet(false);
             mWindow.setGravity(Gravity.TOP | Gravity.LEFT);
 
-            //if (android.os.Process.myUid() == android.os.Process.SYSTEM_UID) {
             int flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
                 mWindow.setFlags(flags, flags);
-                WindowManager.LayoutParams params = mWindow.getAttributes();
-                params.alpha = 1f;
-                //params.dimAmount = 0.25f;
-                //params.x = 10;
-                //params.y = 10;
-                mWindow.setAttributes(params);
-            //}
+            WindowManager.LayoutParams params = mWindow.getAttributes();
+            params.alpha = 1f;
+            mWindow.setAttributes(params);
 
             // Scale it
             scaleFloatingWindow(context);
