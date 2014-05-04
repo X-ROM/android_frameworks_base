@@ -2975,6 +2975,12 @@ public final class Settings {
         public static final String POINTER_SPEED = "pointer_speed";
 
         /**
+         * Halo notifications on floating windows or not
+         * @hide
+         */
+        public static final String FLOATING_MODE = "floating_mode";
+
+        /**
          * I am the lolrus.
          * <p>
          * Nonzero values indicate that the user has a bukkit.
