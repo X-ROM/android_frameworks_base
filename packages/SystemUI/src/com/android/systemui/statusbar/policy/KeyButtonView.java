@@ -59,8 +59,8 @@ public class KeyButtonView extends ImageView {
     String mLongpressAction;
     int mTouchSlop;
     Drawable mGlowBG;
-    int mGlowBgId;
     int mGlowBGColor;
+    int mGlowBgId;
     int mGlowWidth, mGlowHeight;
     float mGlowAlpha = 0f, mGlowScale = 1f;
     @ViewDebug.ExportedProperty(category = "drawing")
@@ -117,12 +117,6 @@ public class KeyButtonView extends ImageView {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public void updateResources() {
-        if (mGlowBgId != 0) {
-            mGlowBG = mContext.getResources().getDrawable(mGlowBgId);
-        }
-    }
-
     public void setClickAction(String action) {
         mClickAction = action;
         setOnClickListener(mClickListener);
@@ -154,6 +148,12 @@ public class KeyButtonView extends ImageView {
             mGlowBG.setColorFilter(null);
             mGlowBG.setColorFilter(mGlowBGColor, Mode.SRC_ATOP);
 
+        }
+    }
+
+    public void updateResources() {
+        if (mGlowBgId != 0) {
+            mGlowBG = mContext.getResources().getDrawable(mGlowBgId);
         }
     }
 
