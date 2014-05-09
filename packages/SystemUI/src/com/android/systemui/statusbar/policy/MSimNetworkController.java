@@ -1039,11 +1039,7 @@ public class MSimNetworkController extends NetworkController {
                     mHasMobileDataFeature ? mMSimDataSignalIconId[subscription] : mWifiIconId;
             mMSimContentDescriptionCombinedSignal[subscription] = mHasMobileDataFeature
                     ? mMSimContentDescriptionDataType[subscription] : mContentDescriptionWifi;
-        }
 
-        if (!mMSimDataConnected[subscription]) {
-            Slog.d(TAG, "refreshViews: Data not connected!! Set no data type icon / Roaming for"
-                    + " subscription: " + subscription);
             mMSimDataTypeIconId[subscription] = 0;
             if (isCdma(subscription)) {
                 if (isCdmaEri(subscription)) {
