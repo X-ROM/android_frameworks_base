@@ -136,7 +136,6 @@ import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
 import com.android.internal.util.FastXmlSerializer;
 import com.android.internal.util.IndentingPrintWriter;
-import com.android.internal.util.Objects;
 import com.google.android.collect.Lists;
 import com.google.android.collect.Maps;
 import com.google.android.collect.Sets;
@@ -158,6 +157,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import libcore.io.IoUtils;
 
@@ -692,7 +692,7 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
                 // subscriberId matches.
                 if (NetworkIdentity.isDdsReady()) {
                     // multi sim data traffic statistics
-                    return Objects.equal(NetworkIdentity.getDdsSubscriberId(),
+                    return Objects.equals(NetworkIdentity.getDdsSubscriberId(),
                             template.getSubscriberId());
                 } else {
                     return false;
@@ -949,7 +949,7 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
                 // TODO: offer more granular control over radio states once
                 // 4965893 is available.
                 if (NetworkIdentity.isDdsReady()
-                        && Objects.equal(NetworkIdentity.getDdsSubscriberId(),
+                        && Objects.equals(NetworkIdentity.getDdsSubscriberId(),
                                 template.getSubscriberId())) {
                     setPolicyDataEnable(TYPE_MOBILE, enabled);
                     setPolicyDataEnable(TYPE_WIMAX, enabled);
