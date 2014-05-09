@@ -66,7 +66,6 @@ import android.os.Message;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.provider.Settings;
-import android.telephony.MSimTelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -227,11 +226,7 @@ public class QuickSettingsController {
             } else if (tile.equals(TILE_SETTINGS)) {
                 qs = new PreferencesTile(mContext, this);
             } else if (tile.equals(TILE_WIFI)) {
-                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-                    qs = new WiFiTile(mContext, this, mStatusBarService.mMSimNetworkController);
-                } else {
-                    qs = new WiFiTile(mContext, this, mStatusBarService.mNetworkController);
-                }
+                qs = new WiFiTile(mContext, this, mStatusBarService.mNetworkController);
             } else if (tile.equals(TILE_GPS)) {
                 qs = new GPSTile(mContext, this, mStatusBarService.mLocationController);
             } else if (tile.equals(TILE_FCHARGE)) {
@@ -255,27 +250,15 @@ public class QuickSettingsController {
             } else if (tile.equals(TILE_SCREENTIMEOUT)) {
                 qs = new ScreenTimeoutTile(mContext, this);
             } else if (tile.equals(TILE_MOBILEDATA) && mobileDataSupported) {
-                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-                    qs = new MobileNetworkTile(mContext, this, mStatusBarService.mMSimNetworkController);
-                } else {
-                    qs = new MobileNetworkTile(mContext, this, mStatusBarService.mNetworkController);
-                }
+                qs = new MobileNetworkTile(mContext, this, mStatusBarService.mNetworkController);
             } else if (tile.equals(TILE_LOCKSCREEN)) {
                 qs = new ToggleLockscreenTile(mContext, this);
             } else if (tile.equals(TILE_NETWORKMODE) && mobileDataSupported) {
-                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-                    qs = new MobileNetworkTypeTile(mContext, this, mStatusBarService.mMSimNetworkController);
-                } else {
-                    qs = new MobileNetworkTypeTile(mContext, this, mStatusBarService.mNetworkController);
-                }
+                qs = new MobileNetworkTypeTile(mContext, this, mStatusBarService.mNetworkController);
             } else if (tile.equals(TILE_AUTOROTATE)) {
                 qs = new AutoRotateTile(mContext, this, mHandler);
             } else if (tile.equals(TILE_AIRPLANE)) {
-                if (MSimTelephonyManager.getDefault().isMultiSimEnabled()) {
-                    qs = new AirplaneModeTile(mContext, this, mStatusBarService.mMSimNetworkController);
-                } else {
-                    qs = new AirplaneModeTile(mContext, this, mStatusBarService.mNetworkController);
-                }
+                qs = new AirplaneModeTile(mContext, this, mStatusBarService.mNetworkController);
             } else if (tile.equals(TILE_TORCH)) {
                 qs = new TorchTile(mContext, this, mHandler);
             } else if (tile.equals(TILE_SLEEP)) {
