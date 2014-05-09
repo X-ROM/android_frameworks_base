@@ -1054,12 +1054,6 @@ public class MSimNetworkController extends NetworkController {
                 mMSimDataTypeIconId[subscription] = R.drawable.stat_sys_data_fully_connected_roam;
             }
         }
-
-        if (!mAirplaneMode && mMSimState[subscription] == IccCardConstants.State.ABSENT) {
-            mMSimPhoneSignalIconId[subscription] = mMSimDataSignalIconId[subscription]
-                    = mMSimDataTypeIconId[subscription] = 0;
-        }
-
         if (DEBUG) {
             Slog.d(TAG, "refreshViews connected={"
                     + (mWifiConnected?" wifi":"")
