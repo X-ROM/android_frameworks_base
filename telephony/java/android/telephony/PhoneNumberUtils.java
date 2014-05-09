@@ -32,7 +32,6 @@ import android.net.Uri;
 import android.os.SystemProperties;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -155,11 +154,7 @@ public class PhoneNumberUtils
         boolean isIPPrefix = intent.getBooleanExtra(IP_CALL, false);
         if (isIPPrefix && number != null
                 && subscription < MSimTelephonyManager.getDefault().getPhoneCount()) {
-            String IPPrefix = Settings.System.getString(context.getContentResolver(),
-                    IP_CALL_PREFIX + (subscription + 1));
-            if (!TextUtils.isEmpty(IPPrefix)) {
-                return IPPrefix + number;
-            }
+            return IP_CALL_PREFIX + subscription + number;
         }
         return number;
     }
