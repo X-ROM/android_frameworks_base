@@ -196,11 +196,6 @@ public class MSimNetworkController extends NetworkController {
     }
 
     @Override
-    protected Handler createWifiHandler() {
-        return new MSimWifiHandler();
-    }
-
-    @Override
     protected void registerPhoneStateListener(Context context) {
         // telephony
         int numPhones = MSimTelephonyManager.getDefault().getPhoneCount();
