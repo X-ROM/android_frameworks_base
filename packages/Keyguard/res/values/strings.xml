@@ -375,14 +375,6 @@
         This is displayed if the phone is not connected to a carrier.-->
     <string name="keyguard_carrier_default">No service.</string>
 
-
-    <!-- Multi SIM related -->
-    <!-- Message used in Multi SIM enabled SIM PIN view -->
-    <string name="msim_kg_sim_pin_msg_format">SUB: <xliff:g id="number">%d</xliff:g>: <xliff:g id="msg">%s</xliff:g></string>
-
-    <!-- Carrier text used in Multi SIM enabled view -->
-    <string name="msim_carrier_text_format"><xliff:g id="text_1">%s</xliff:g>, <xliff:g id="text_2">%s</xliff:g></string>
-
     <!-- On the unlock gesture screen, shown at the top of the unlock screen to tell the user what to do. Below this text is the place for the user to draw the gesture. -->
     <string name="lockscreen_gesture_instructions">Draw gesture to unlock</string>
     <!-- Shown to confirm that the user entered their lock gesture correctly. -->
