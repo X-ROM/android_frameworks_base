@@ -235,6 +235,8 @@ public class NetworkController extends BroadcastReceiver implements DemoMode {
                 com.android.internal.R.string.lockscreen_carrier_default);
         mNetworkName = mNetworkNameDefault;
 
+        createWifiHandler();
+
        // wifi
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         Handler handler = new WifiHandler();
@@ -316,7 +318,6 @@ public class NetworkController extends BroadcastReceiver implements DemoMode {
 
     public void addDataTypeIconView(ImageView v) {
         mDataTypeIconViews.add(v);
-    }
 
     protected void registerPhoneStateListener(Context context) {
         // telephony
