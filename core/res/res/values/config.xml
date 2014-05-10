@@ -1468,10 +1468,6 @@
     <!-- bool value to for enabling motion accelerometer -->
     <bool name="use_motion_accel">false</bool>
 
-    <!-- set to false if we dont need to consider data
-         service state to display signal strength bars -->
-    <bool name="config_combined_signal">true</bool>
-
     <!-- Configuartion to support 7bit Ascii encoding and decoding
          for long messages. -->
     <bool name="config_ascii_7bit_support_for_long_message">false</bool>
