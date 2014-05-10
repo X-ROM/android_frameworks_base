@@ -317,10 +317,8 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
                     }
                     if ((events & PhoneStateListener.LISTEN_DATA_CONNECTION_STATE) != 0) {
                         try {
-                            if (r.subscription == subscription) {
-                                r.callback.onDataConnectionStateChanged(mDataConnectionState,
-                                        mDataConnectionNetworkType);
-                            }
+                            r.callback.onDataConnectionStateChanged(mDataConnectionState,
+                                mDataConnectionNetworkType);
                         } catch (RemoteException ex) {
                             remove(r.binder);
                         }
@@ -534,8 +532,7 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
 
     public void notifyDataConnection(int state, boolean isDataConnectivityPossible,
             String reason, String apn, String apnType, LinkProperties linkProperties,
-            LinkCapabilities linkCapabilities, int networkType, boolean roaming,
-            int subscription) {
+            LinkCapabilities linkCapabilities, int networkType, boolean roaming) {
         if (!checkNotifyPermission("notifyDataConnection()" )) {
             return;
         }
@@ -581,11 +578,8 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
                         + ", " + mDataConnectionNetworkType + ")");
                 }
                 for (Record r : mRecords) {
-                    if (((r.events & PhoneStateListener.LISTEN_DATA_CONNECTION_STATE) != 0) &&
-                            (r.subscription == subscription)) {
+                    if ((r.events & PhoneStateListener.LISTEN_DATA_CONNECTION_STATE) != 0) {
                         try {
-                            Slog.d(TAG,"Notify data connection state changed on sub: " +
-                                    subscription);
                             r.callback.onDataConnectionStateChanged(mDataConnectionState,
                                     mDataConnectionNetworkType);
                         } catch (RemoteException ex) {
@@ -597,11 +591,10 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
             }
         }
         broadcastDataConnectionStateChanged(state, isDataConnectivityPossible, reason, apn,
-                apnType, linkProperties, linkCapabilities, roaming, subscription);
+                apnType, linkProperties, linkCapabilities, roaming);
     }
 
-    public void notifyDataConnectionFailed(String reason, String apnType,
-            int subscription) {
+    public void notifyDataConnectionFailed(String reason, String apnType) {
         if (!checkNotifyPermission("notifyDataConnectionFailed()")) {
             return;
         }
@@ -619,7 +612,7 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
             }
         }
         */
-        broadcastDataConnectionFailed(reason, apnType, subscription);
+        broadcastDataConnectionFailed(reason, apnType);
     }
 
     public void notifyCellLocation(Bundle cellLocation, int subscription) {
@@ -762,7 +755,7 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
     private void broadcastDataConnectionStateChanged(int state,
             boolean isDataConnectivityPossible,
             String reason, String apn, String apnType, LinkProperties linkProperties,
-            LinkCapabilities linkCapabilities, boolean roaming, int subscription) {
+            LinkCapabilities linkCapabilities, boolean roaming) {
         // Note: not reporting to the battery stats service here, because the
         // status bar takes care of that after taking into account all of the
         // required info.
@@ -789,18 +782,15 @@ class MSimTelephonyRegistry extends ITelephonyRegistryMSim.Stub {
 
         intent.putExtra(PhoneConstants.DATA_APN_KEY, apn);
         intent.putExtra(PhoneConstants.DATA_APN_TYPE_KEY, apnType);
-        intent.putExtra(MSimConstants.SUBSCRIPTION_KEY, subscription);
         mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
     }
 
-    private void broadcastDataConnectionFailed(String reason, String apnType,
-            int subscription) {
+    private void broadcastDataConnectionFailed(String reason, String apnType) {
         Intent intent = new Intent(TelephonyIntents.ACTION_DATA_CONNECTION_FAILED);
         intent.putExtra(PhoneConstants.FAILURE_REASON_KEY, reason);
         intent.putExtra(PhoneConstants.DATA_APN_TYPE_KEY, apnType);
         intent.putExtra(MSimConstants.SUBSCRIPTION_KEY,
                 MSimTelephonyManager.getDefault().getPreferredDataSubscription());
-        intent.putExtra(MSimConstants.SUBSCRIPTION_KEY, subscription);
         mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
     }
 
