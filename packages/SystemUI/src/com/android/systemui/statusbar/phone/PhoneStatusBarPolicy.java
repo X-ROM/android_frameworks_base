@@ -200,7 +200,7 @@ public class PhoneStatusBarPolicy {
                 simState = IccCardConstants.State.PUK_REQUIRED;
             }
             else {
-                simState = IccCardConstants.State.PERSO_LOCKED;
+                simState = IccCardConstants.State.NETWORK_LOCKED;
             }
         } else {
             simState = IccCardConstants.State.UNKNOWN;
