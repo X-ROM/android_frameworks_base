@@ -118,6 +118,10 @@ public class LocationController extends BroadcastReceiver {
         mSettingsChangeCallbacks.add(cb);
     }
 
+    public void removeSettingsChangedCallback(LocationSettingsChangeCallback cb) {
+        mSettingsChangeCallbacks.remove(cb);
+    }
+
     /**
      * Remove a callback to listen for changes in location settings.
      */
