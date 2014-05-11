@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 
 import com.android.systemui.R;
@@ -45,11 +45,7 @@ public class BatterySaverTile extends QuickSettingsTile{
         mOnLongClick = new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                //startSettingsActivity(Intent.ACTION_POWER_USAGE_SUMMARY);
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.setClassName("com.android.settings",
-                    "com.android.settings.Settings$BatterySaverSettingsConfigActivity");
-                startSettingsActivity(intent);
+                startSettingsActivity(Intent.ACTION_POWER_USAGE_SUMMARY);
                 return true;
             }
         };
