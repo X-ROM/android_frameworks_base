@@ -404,7 +404,6 @@ public class AppSidebar extends TriggerOverlayView {
                 }
             }
             icon.setClickable(true);
-            icon.setPadding(0, padding, 0, padding);
             mAppContainer.addView(icon, ITEM_LAYOUT_PARAMS);
         }
 
