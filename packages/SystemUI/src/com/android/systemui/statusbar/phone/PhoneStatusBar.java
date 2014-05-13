@@ -595,6 +595,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.SYSTEM_ICON_COLOR, -2, UserHandle.USER_CURRENT);
             updateBatteryIcons();
 
+            updateCustomHeaderStatus();
+
             int signalStyle = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_SIGNAL_TEXT,
                     SignalClusterView.STYLE_NORMAL, mCurrentUserId);
