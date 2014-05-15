@@ -101,7 +101,6 @@ import com.android.internal.util.slim.ButtonConfig;
 import com.android.internal.util.slim.DeviceUtils;
 import com.android.systemui.R;
 import com.android.systemui.SearchPanelView;
-import com.android.systemui.RecentsComponent;
 import com.android.systemui.SystemUI;
 import com.android.systemui.slimrecent.RecentController;
 import com.android.systemui.statusbar.halo.Halo;
@@ -189,10 +188,6 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected PopupMenu mNotificationBlamePopup;
 
     protected int mCurrentUserId = 0;
-
-    private RecentController cRecents;
-
-    private RecentsComponent mRecents;
 
     protected int mLayoutDirection = -1; // invalid
     private Locale mLocale;
@@ -416,17 +411,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
-        mCustomRecent = Settings.System.getBoolean(
-                        mContext.getContentResolver(), Settings.System.CUSTOM_RECENT, false);
-
-        mLocale = mContext.getResources().getConfiguration().locale;
-        mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
-
-        if(mCustomRecent){
-            cRecents = new RecentController(mContext, mLayoutDirection);
-        }else{
-            mRecents = getComponent(RecentsComponent.class);
-        }
+        mRecents = new RecentController(mContext);
 
         mStatusBarContainer = new FrameLayout(mContext);
 
@@ -1019,54 +1004,34 @@ public abstract class BaseStatusBar extends SystemUI implements
     };
 
     protected void toggleRecentsActivity() {
-        if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
-                        Settings.System.CUSTOM_RECENT, false);
-        if(mCustomRecent)
-            cRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView());
-        else
-            mRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView(),mExpandedDesktopStyle);
+        if (mRecents != null) {
+            mRecents.toggleRecents(mDisplay, mLayoutDirection, getStatusBarView(),
+                    mExpandedDesktopStyle);
         }
     }
 
     protected void preloadRecentTasksList() {
-        if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
-                        Settings.System.CUSTOM_RECENT, false);
-        if(mCustomRecent)
-            cRecents.preloadRecentTasksList();
-        else
+        if (mRecents != null) {
             mRecents.preloadRecentTasksList();
         }
     }
 
     protected void cancelPreloadingRecentTasksList() {
-        if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
-                        Settings.System.CUSTOM_RECENT, false);
-        if(mCustomRecent)
-            cRecents.cancelPreloadingRecentTasksList();
-        else
+        if (mRecents != null) {
             mRecents.cancelPreloadingRecentTasksList();
         }
     }
 
     protected void closeRecents() {
-       if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
-                        Settings.System.CUSTOM_RECENT, false);
-        if(mCustomRecent)
-            cRecents.closeRecents();
-        else
+        if (mRecents != null) {
             mRecents.closeRecents();
         }
     }
 
     protected void rebuildRecentsScreen() {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
-                        Settings.System.CUSTOM_RECENT, false);
-        if (cRecents != null && mCustomRecent)
-                cRecents.rebuildRecentsScreen();
+        if (mRecents != null) {
+            mRecents.rebuildRecentsScreen();
+        }
     }
 
     public abstract void resetHeadsUpDecayTimer();

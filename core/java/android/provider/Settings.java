@@ -4879,13 +4879,6 @@ public final class Settings {
          */
         public static final String NAVIGATION_BAR_WIDTH = "navigation_bar_width";
 
-        /**
-         * Custom Recent Control
-         *
-         * @hide
-         */
-        public static final String CUSTOM_RECENT = "custom_recent";
-
 	/**
          * whether which Ram Usage Bar mode is used on recent switcher
          * 0 = none, 1 = only app use, 2 = app and cache use, 3 = app, cache and system use
