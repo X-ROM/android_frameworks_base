@@ -1826,7 +1826,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             !(emergencyCallsShownElsewhere && isEmergencyOnly)
             && mPile.getHeight() < (mNotificationPanel.getHeight() - mCarrierLabelHeight - mNotificationHeaderHeight)
             && mScrollView.getVisibility() == View.VISIBLE
-            && !mAnimatingFlip;
 
         if (force || mCarrierLabelVisible != makeVisible) {
             mCarrierLabelVisible = makeVisible;
