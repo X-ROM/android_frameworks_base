@@ -1489,19 +1489,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     private void prepareNavigationBarView() {
         mNavigationBarView.reorient();
-
-         final boolean mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
+        final boolean mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
                         Settings.System.CUSTOM_RECENT, false);
-        if (mNavigationBarView.getRecentsButton() != null) {
-            mNavigationBarView.getRecentsButton().setOnClickListener(mRecentsClickListener);
-            if(!mCustomRecent) mNavigationBarView.getRecentsButton().setOnTouchListener(mRecentsPreloadOnTouchListener);
+
+        View home = mNavigationBarView.getHomeButton();
+        if (home != null) {
+            home.setOnTouchListener(mHomeSearchActionListener);
         }
-        if (mNavigationBarView.getHomeButton() != null) {
-            mNavigationBarView.getHomeButton().setOnTouchListener(mHomeSearchActionListener);
-        }
-        if (mNavigationBarView.getSearchLight() != null || mCustomRecent) {
-            mNavigationBarView.getSearchLight().setOnTouchListener(mHomeSearchActionListener);
-        }
+        mNavigationBarView.getSearchLight().setOnTouchListener(mHomeSearchActionListener);
         setDisableHomeLongpress();
         updateSearchPanel(mNavigationBarCanMove, mNavigationRingConfig);
     }

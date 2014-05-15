@@ -190,6 +190,10 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     protected int mCurrentUserId = 0;
 
+    private RecentController cRecents;
+
+    private RecentsComponent mRecents;
+
     protected int mLayoutDirection = -1; // invalid
     private Locale mLocale;
     protected boolean mUseHeadsUp = false;
@@ -199,10 +203,6 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected int mRowHeight;
 
     protected FrameLayout mStatusBarContainer;
-
-    private RecentController cRecents;
-
-    private RecentsComponent mRecents;
 
     // left-hand icons 
     public LinearLayout mStatusIcons;
@@ -261,10 +261,9 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected Display mDisplay;
 
     private boolean mDeviceProvisioned = false;
-
-    private boolean mCustomRecent = false;
-
     private int mAutoCollapseBehaviour;
+
+    private RecentController mRecents;
 
     protected ActiveDisplayView mActiveDisplayView;
 
@@ -417,7 +416,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
-        mCustomRecent = Settings.System.getIntForUser   (
+        mCustomRecent = Settings.System.getBoolean(
                         mContext.getContentResolver(), Settings.System.CUSTOM_RECENT, false);
 
         mLocale = mContext.getResources().getConfiguration().locale;
@@ -1043,7 +1042,7 @@ public abstract class BaseStatusBar extends SystemUI implements
 
     protected void cancelPreloadingRecentTasksList() {
         if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
+        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
                         Settings.System.CUSTOM_RECENT, false);
         if(mCustomRecent)
             cRecents.cancelPreloadingRecentTasksList();
@@ -1053,8 +1052,8 @@ public abstract class BaseStatusBar extends SystemUI implements
     }
 
     protected void closeRecents() {
-         if (mRecents != null || cRecents != null) {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
+       if (mRecents != null || cRecents != null) {
+        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
                         Settings.System.CUSTOM_RECENT, false);
         if(mCustomRecent)
             cRecents.closeRecents();
@@ -1064,9 +1063,9 @@ public abstract class BaseStatusBar extends SystemUI implements
     }
 
     protected void rebuildRecentsScreen() {
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(), 
-                         Settings.System.CUSTOM_RECENT, false);   
-        if (cRecents != null && mCustomRecent)   
+        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
+                        Settings.System.CUSTOM_RECENT, false);
+        if (cRecents != null && mCustomRecent)
                 cRecents.rebuildRecentsScreen();
     }
 
