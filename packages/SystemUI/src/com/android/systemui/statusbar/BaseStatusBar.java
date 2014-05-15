@@ -417,8 +417,8 @@ public abstract class BaseStatusBar extends SystemUI implements
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
-        mCustomRecent = Settings.System.getBoolean(mContext.getContentResolver(),
-                Settings.System.CUSTOM_RECENT, false);
+        mCustomRecent = Settings.System.getIntForUser   (
+                        mContext.getContentResolver(), Settings.System.CUSTOM_RECENT, false);
 
         mLocale = mContext.getResources().getConfiguration().locale;
         mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(mLocale);
