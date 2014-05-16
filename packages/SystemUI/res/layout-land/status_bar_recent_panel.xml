@@ -24,8 +24,8 @@
 	    android:id="@+id/recents_root"
 	    android:layout_height="match_parent"
 	    android:layout_width="match_parent"
+	    android:layout_marginTop="-75dp"
 	    android:foreground="@drawable/bg_protect"
-	    android:layout_marginTop="-25dp"
 	    systemui:recentItemLayout="@layout/status_bar_recent_item"
 	    android:fitsSystemWindows="true"
 	    >
@@ -86,6 +86,7 @@
                 android:id="@+id/recents_bg_protect"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="75dp"
 		android:layout_alignParentBottom="true"
                 android:clipToPadding="false"
                 android:clipChildren="false">
