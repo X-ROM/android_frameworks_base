@@ -16,6 +16,8 @@
 
 package com.android.keyguard;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.ActivityManagerNative;
@@ -133,20 +135,21 @@ public class NotificationHostView extends FrameLayout {
         }
     }
 
-    private class NotificationView extends FrameLayout {
+    private class NotificationView extends FrameLayout implements View.OnClickListener {
         private static final int CLICK_THRESHOLD = 10;
 
         private StatusBarNotification statusBarNotification;
+        private Runnable onActionUp;
         private Runnable onAnimationEnd;
         private VelocityTracker velocityTracker;
         private int animations = 0;
         private boolean swipeGesture = false;
         private boolean pointerDown = false;
         private boolean bigContentView;
+        private boolean switchView = false;
         private float initialX;
         private float delta;
         private boolean shown = false;
-        private boolean longpress = false;
 
         public NotificationView(Context context, StatusBarNotification sbn) {
             super(context);
@@ -172,31 +175,33 @@ public class NotificationHostView extends FrameLayout {
             return animation;
         }
 
-        private void startIntent() {
-            PendingIntent i = statusBarNotification.getNotification().contentIntent;
-            if (i != null) {
-                try {
-                    Intent intent = i.getIntent();
-                    intent.setFlags(
-                        intent.getFlags()
-                        | Intent.FLAG_ACTIVITY_NEW_TASK
-                        | Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    ActivityManagerNative.getDefault().dismissKeyguardOnNextActivity();
-                    i.send();
-                } catch (CanceledException ex) {
-                    Log.e(TAG, "intent canceled!");
-                } catch (RemoteException ex) {
-                    Log.e(TAG, "failed to dimiss keyguard!");
+        @Override
+        public void onClick(View v) {
+            if (!swipeGesture) {
+                PendingIntent i = statusBarNotification.getNotification().contentIntent;
+                if (i != null) {
+                    try {
+                        Intent intent = i.getIntent();
+                        intent.setFlags(
+                            intent.getFlags()
+                            | Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                            | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        ActivityManagerNative.getDefault().dismissKeyguardOnNextActivity();
+                        i.send();
+                    } catch (CanceledException ex) {
+                        Log.e(TAG, "intent canceled!");
+                    } catch (RemoteException ex) {
+                        Log.e(TAG, "failed to dimiss keyguard!");
+                    }
                 }
             }
         }
-
         @Override
-        public boolean dispatchTouchEvent(MotionEvent event) {
-            View v = getChildAt(0);
+        public boolean onInterceptTouchEvent(MotionEvent event) {
             mViewMediatorCallback.userActivity();
             if (!NotificationViewManager.config.privacyMode) {
+                View v = getChildAt(0);
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         initialX = event.getX();
@@ -205,53 +210,50 @@ public class NotificationHostView extends FrameLayout {
                         velocityTracker = VelocityTracker.obtain();
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        if (v.getWidth() > 0) {
-                            velocityTracker.addMovement(event);
-                            float x = (event.getX() - delta);
-                            float xr = x - (mDisplayWidth - v.getWidth());
-                            if (canBeDismissed() && x < mDisplayWidth - v.getWidth()) {
-                                v.setAlpha(1f + (xr / (v.getWidth() * (SWIPE * 2))));
-                            }
-                            if (canBeDismissed() && (mShownNotifications == 0 || (shown && mShownNotifications == 1)))
-                                NotificationHostView.this.setBackgroundColor(Color.argb(MAX_ALPHA -
-                                        (int)(Math.abs(xr) / v.getWidth() * MAX_ALPHA), 0, 0, 0));
-                            if (swipeGesture  || Math.abs(event.getX() - initialX) > CLICK_THRESHOLD) {
-                                swipeGesture = true;
-                                v.cancelPendingInputEvents();
-                                mScrollView.requestDisallowInterceptTouchEvent(true);
-                                v.setTranslationX((!canBeDismissed() && x < 0) ? -4 * (float)Math.sqrt(-x) : x);
-                            }
+                        velocityTracker.addMovement(event);
+                        float x = (event.getX() - delta);
+                        float xr = x - (mDisplayWidth - v.getWidth());
+                        if (canBeDismissed() && x < mDisplayWidth - v.getWidth()) {
+                            v.setAlpha(1f + (xr / (v.getWidth() * (SWIPE * 2))));
+                        }
+                        if (canBeDismissed() && (mShownNotifications == 0 || (shown && mShownNotifications == 1)))
+                            NotificationHostView.this.setBackgroundColor(Color.argb(MAX_ALPHA -
+                                    (int)(Math.abs(xr) / v.getWidth() * MAX_ALPHA), 0, 0, 0));
+                        if (swipeGesture  || Math.abs(event.getX() - initialX) > CLICK_THRESHOLD) {
+                            swipeGesture = true;
+                            v.cancelPendingInputEvents();
+                            mScrollView.requestDisallowInterceptTouchEvent(true);
+                            v.setTranslationX((!canBeDismissed() && x < 0) ? -4 * (float)Math.sqrt(-x) : x);
                         }
                         break;
                     case MotionEvent.ACTION_UP:
-                        if (!swipeGesture && !longpress) {
-                            startIntent();
-                        } else if (v != null) {
-                            boolean dismiss = getVelocity() < 0 &&
-                                    v.getX() - (mDisplayWidth - v.getWidth())< -SWIPE * mDisplayWidth &&
-                                    canBeDismissed();
-                            boolean show = (v.getX() < (SWIPE * mDisplayWidth)) ||
-                                    (v.getX() < ((1 - SWIPE) * mDisplayWidth) && getVelocity() < 0);
-                            if (dismiss) {
+                        if (v != null && swipeGesture) {
+                            if (v.getX() - (mDisplayWidth - v.getWidth())< -SWIPE * mDisplayWidth && canBeDismissed()) {
                                 removeNotification(statusBarNotification);
-                            } else if (show) {
+                            } else if (v.getX() < (SWIPE * mDisplayWidth)) {
                                 showNotification(this);
+                                onAnimationEnd = onActionUp;
+                            } else if (v.getX() < ((1 - SWIPE) * mDisplayWidth) && getVelocity() < 0) {
+                                showNotification(this);
+                                onAnimationEnd = onActionUp;
                             } else {
                                 hideNotification(this);
+                                onAnimationEnd = onActionUp;
                             }
                         }
                         velocityTracker.recycle();
+                        onActionUp = null;
                         swipeGesture = false;
                         pointerDown = false;
-                        longpress = false;
                         break;
                 }
             }
-            return super.dispatchTouchEvent(event);
+            return false;
         }
 
         public void runOnAnimationEnd(Runnable r) {
-            if (animations > 0 || swipeGesture) onAnimationEnd = r;
+            if (animations > 0) onAnimationEnd = r;
+            else if ((pointerDown && !switchView) || swipeGesture) onActionUp = r;
             else r.run();
         }
 
@@ -262,6 +264,12 @@ public class NotificationHostView extends FrameLayout {
         public float getVelocity() {
             if (pointerDown) velocityTracker.computeCurrentVelocity(1); // 1 = pixel per millisecond
             return pointerDown ? velocityTracker.getXVelocity() : PPMS;
+        }
+
+        @Override
+        public void addView(View v) {
+            v.setOnClickListener(this);
+            super.addView(v);
         }
     }
 
@@ -358,7 +366,7 @@ public class NotificationHostView extends FrameLayout {
         public void onLayoutChange(View v, int left, int top, int right, int bottom,
                 int oldLeft, int oldTop, int oldRight, int oldBottom) {
             NotificationView nv = (NotificationView) v;
-            if (nv.shown) {
+            if (nv != null && nv.shown) {
                 nv.getChildAt(0).setX(mDisplayWidth - nv.getChildAt(0).getWidth());
             }
             v.removeOnLayoutChangeListener(this);
@@ -390,20 +398,21 @@ public class NotificationHostView extends FrameLayout {
         setBackgroundRecursive((ViewGroup)remoteView);
         remoteView.setBackgroundColor(NotificationViewManager.config.notificationColor);
         remoteView.setAlpha(1f);
-        final boolean enableBc = bigContentView && sbn.getNotification().contentView != null;
-        final boolean bc = !forceBigContentView;
-        final NotificationView notifView = reposted ? oldView : nv;
-        remoteView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (enableBc && notifView.shown) {
+        if (bigContentView && sbn.getNotification().contentView != null) {
+            final boolean bc = !forceBigContentView;
+            final NotificationView notifView = reposted ? oldView : nv;
+            remoteView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    notifView.onActionUp = null;
+                    notifView.onAnimationEnd = null;
                     notifView.bigContentView = bc;
+                    notifView.switchView = true;
                     addNotification(sbn, false, bc);
+                    return true;
                 }
-                notifView.longpress = true;
-                return true;
-            }
-        });
+            });
+        }
 
         if (reposted){
             //The notification already exists, so it was just changed. Remove the old view and add the new one
@@ -418,6 +427,7 @@ public class NotificationHostView extends FrameLayout {
             if (showNotification && !oldView.shown && showNotification && !oldView.pointerDown) showNotification(sbn);
             oldView.runOnAnimationEnd(replaceView);
             oldView.bigContentView = nv.bigContentView;
+            oldView.switchView = false;
             return;
         }
 
