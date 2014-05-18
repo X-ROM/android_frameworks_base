@@ -5133,6 +5133,13 @@ public final class Settings {
          */
         public static final String PEEK_PICKUP_TIMEOUT = "peek_pickup_timeout";
 
+       /**
+         * Time to show notification
+         * 5000ms = default
+         * @hide
+         */
+        public static final String PEEK_WAKE_TIMEOUT = "peek_wake_timeout";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
