@@ -30,8 +30,6 @@ import android.text.TextUtils;
 public final class CustomTheme implements Cloneable, Parcelable, Comparable<CustomTheme> {
     private final String SYSTEMUI_PKG_NAME = "com.android.systemui";
 
-    public static final String HOLO_DEFAULT = "holo";
-
     protected final String mThemePackageName;
     protected final String mIconPackPkgName;
     protected final String mSystemUiThemePkgName;
@@ -236,22 +234,22 @@ public final class CustomTheme implements Cloneable, Parcelable, Comparable<Cust
         }
 
         public Builder overlay(String pkgName) {
-            this.mThemePkgName = pkgName.equals(HOLO_DEFAULT) ? "" : pkgName;
+            this.mThemePkgName = pkgName.equals("default") ? "" : pkgName;
             return this;
         }
 
         public Builder systemUi(String pkgName) {
-            this.mSystemUiPkgName = pkgName.equals(HOLO_DEFAULT) ? "" : pkgName;
+            this.mSystemUiPkgName = pkgName.equals("default") ? "" : pkgName;
             return this;
         }
 
         public Builder icons(String pkgName) {
-            this.mIconPkgName = pkgName.equals(HOLO_DEFAULT) ? "" : pkgName;
+            this.mIconPkgName = pkgName.equals("default") ? "" : pkgName;
             return this;
         }
 
         public Builder fonts(String pkgName) {
-            this.mFontPkgName = pkgName.equals(HOLO_DEFAULT) ? "" : pkgName;
+            this.mFontPkgName = pkgName.equals("default") ? "" : pkgName;
             return this;
         }
 
